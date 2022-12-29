@@ -1,10 +1,18 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <ui:VisualElement name="TopMenu" style="height: 45px; flex-basis: 45px; flex-direction: row; min-width: auto; min-height: auto; border-left-color: rgb(31, 31, 31); border-right-color: rgb(31, 31, 31); border-top-color: rgb(31, 31, 31); border-bottom-color: rgb(31, 31, 31); border-bottom-width: 2px; margin-top: 5px; margin-left: 5px; margin-right: 5px;">
-        <ui:Button text="加载编辑器场景" display-tooltip-when-elided="true" name="LoadEditorSceneButton" style="width: 100px;" />
+        <ui:Button text="加载编辑器场景" display-tooltip-when-elided="true" name="LoadEditorSceneButton" style="width: 100px; margin-left: 0; padding-left: 6px;" />
         <ui:Button text="加载旧场景" display-tooltip-when-elided="true" name="LoadOldSceneButton" style="width: 100px;" />
         <ui:Button text="基本信息" display-tooltip-when-elided="true" name="SkillBasicButton" style="width: 100px;" />
         <uie:ObjectField label="演示角色预制体" name="PreviewCharacterPrefabObjectField" type="UnityEngine.GameObject, UnityEngine.CoreModule" allow-scene-objects="false" style="flex-grow: 1; flex-shrink: 1; align-items: center; margin-left: 15px; font-size: 15px;" />
         <uie:ObjectField label="技能配置文件" name="SkillConfigObjectField" type="SkillConfig,Assembly-CSharp" allow-scene-objects="false" style="flex-grow: 1; flex-shrink: 1; align-items: center; margin-left: 15px; font-size: 15px;" />
     </ui:VisualElement>
-    <ui:VisualElement name="Conent" />
+    <ui:VisualElement name="Conent" style="flex-direction: row; height: auto; width: auto;">
+        <ui:VisualElement name="Left" style="width: 200px; min-width: 200px; border-right-width: 2px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); margin-right: 0;" />
+        <ui:VisualElement name="Right" style="flex-grow: 1; height: auto; width: auto; margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 5px;">
+            <ui:IMGUIContainer name="TimeShaft" style="height: 30px; min-height: 30px;" />
+            <ui:ScrollView name="MainContentView" mode="VerticalAndHorizontal" horizontal-scroller-visibility="AlwaysVisible" vertical-scroller-visibility="AlwaysVisible">
+                <ui:VisualElement name="ContentListView" style="min-height: 1000px;" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
