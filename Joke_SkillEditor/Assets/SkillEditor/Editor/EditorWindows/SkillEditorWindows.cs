@@ -24,6 +24,7 @@ public class SkillEditorWindows : EditorWindow
         root.Add(labelFromUXML);
 
         InitTopMenu();
+        InitTimeShaft();
     }
 
 
@@ -138,18 +139,67 @@ public class SkillEditorWindows : EditorWindow
 
     #endregion Config
 
+    #region TimeShaft
+    private IMGUIContainer timeShaft;
+
+    private void InitTimeShaft()
+    {
+        timeShaft = root.Q<IMGUIContainer>("TimeShaft");
+        timeShaft.onGUIHandler = DrawTimeShaft;
+
+    }
+
+    private void DrawTimeShaft()
+    {
+        Handles.BeginGUI();
+        Handles.color = Color.white;
+        Rect rect = timeShaft.contentRect; //时间轴的尺寸
+
+        //起始索引
+        int index = 0;
+        int tickStep = 5;
+        for (int i = 0; i < rect.width; i += skillEditorConfig.frameUnitWidth)
+        {
+            //绘制长线条、文本
+            if (index % tickStep == 0)
+            {
+                Handles.DrawLine(new Vector3(i, rect.height - 10), new Vector3(i, rect.height));
+                string indexStr = index.ToString();
+                GUI.Label(new Rect(i - indexStr.Length * 4.5f, rect.y, 35, 20), indexStr);
+            }
+            else
+            {
+                Handles.DrawLine(new Vector3(i, rect.height - 5), new Vector3(i, rect.height));
+            }
+
+            index += 1;
+        }
+
+
+        Handles.EndGUI();
+    }
+
+    #endregion
+
 
     #region
     private SkillConfig skillConfig;
-
+    private SkillEditorConfig skillEditorConfig = new SkillEditorConfig();
     #endregion
+
+
 
     #region
 
     #endregion
 
-    #region
+}
 
-    #endregion
+public class SkillEditorConfig
+{
+    /// <summary>
+    /// 每帧的单位像素刻度
+    /// </summary>
+    public int frameUnitWidth = 10;
 
 }
