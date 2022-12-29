@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement name="TopMenu" style="height: 45px; flex-basis: 45px; flex-direction: row; min-width: auto; min-height: auto; border-left-color: rgb(31, 31, 31); border-right-color: rgb(31, 31, 31); border-top-color: rgb(31, 31, 31); border-bottom-color: rgb(31, 31, 31); border-bottom-width: 2px; margin-top: 5px; margin-left: 5px; margin-right: 5px;">
+        <ui:Button text="加载编辑器场景" display-tooltip-when-elided="true" name="LoadEditorSceneButton" style="width: 100px;" />
+        <ui:Button text="加载旧场景" display-tooltip-when-elided="true" name="LoadOldSceneButton" style="width: 100px;" />
+        <ui:Button text="基本信息" display-tooltip-when-elided="true" name="SkillBasicButton" style="width: 100px;" />
+        <uie:ObjectField label="演示角色预制体" name="PreviewCharacterPrefabObjectField" style="flex-grow: 1; flex-shrink: 1; align-items: center; margin-left: 15px; font-size: 15px;" />
+        <uie:ObjectField label="技能配置文件" name="SkillConfigObjectField" style="flex-grow: 1; flex-shrink: 1; align-items: center; margin-left: 15px; font-size: 15px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="Conent" />
+</ui:UXML>

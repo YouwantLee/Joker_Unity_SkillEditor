@@ -57,6 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uss" />
+    <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
