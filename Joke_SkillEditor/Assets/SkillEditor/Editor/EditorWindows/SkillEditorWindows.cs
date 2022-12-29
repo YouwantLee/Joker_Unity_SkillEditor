@@ -29,11 +29,16 @@ public class SkillEditorWindows : EditorWindow
 
     #region TopMenu 
     private const string skillEditorScenePath = "Assets/SkillEditor/SkillEditorScene.unity";
+    private const string PreviewCharacterParentPath = "PreviewCharacterRoot";
     private string oldScenePath;
 
     private Button LoadEditorSceneButton;
     private Button LoadOldSceneButton;
     private Button SkillBasicButton;
+
+    private ObjectField PreviewCharacterPrefabObjectField;
+    private ObjectField SkillConfigObjectField;
+    private GameObject currentPreviewCharacterObj;
 
     private void InitTopMenu()
     {
@@ -41,10 +46,18 @@ public class SkillEditorWindows : EditorWindow
         LoadOldSceneButton = root.Q<Button>(nameof(LoadOldSceneButton));
         SkillBasicButton = root.Q<Button>(nameof(SkillBasicButton));
 
+        PreviewCharacterPrefabObjectField = root.Q<ObjectField>(nameof(PreviewCharacterPrefabObjectField));
+        SkillConfigObjectField = root.Q<ObjectField>(nameof(SkillConfigObjectField));
+
         LoadEditorSceneButton.clicked += LoadEditorSceneButtonClick;
         LoadOldSceneButton.clicked += LoadOldSceneButtonClick;
         SkillBasicButton.clicked += SkillBasicButtonClick;
+
+        PreviewCharacterPrefabObjectField.RegisterValueChangedCallback(PreviewCharacterPrefabObjectFieldChanged);
+        SkillConfigObjectField.RegisterValueChangedCallback(SkillConfigObjectFieldChanged);
     }
+
+
 
     /// <summary>
     /// 加载编辑器场景
@@ -87,11 +100,47 @@ public class SkillEditorWindows : EditorWindow
         }
     }
 
+    /// <summary>
+    /// 角色预制体修改
+    /// </summary>
+    /// <param name="evt"></param>
+    private void PreviewCharacterPrefabObjectFieldChanged(ChangeEvent<UnityEngine.Object> evt)
+    {
+        string currentpath = EditorSceneManager.GetActiveScene().path;
+        if (currentpath != skillEditorScenePath) return;
+
+        //销毁旧的
+        if (currentPreviewCharacterObj != null) DestroyImmediate(currentPreviewCharacterObj);
+
+
+        Transform parent = GameObject.Find(PreviewCharacterParentPath).transform;
+        if (parent != null && parent.childCount > 0)
+        {
+            DestroyImmediate(parent.GetChild(0).gameObject);
+        }
+
+        if (evt.newValue != null)
+        {
+            currentPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
+            currentPreviewCharacterObj.transform.localEulerAngles = Vector3.zero;
+        }
+
+    }
+
+    /// <summary>
+    /// 技能配置修改
+    /// </summary>
+    /// <param name="evt"></param>
+    private void SkillConfigObjectFieldChanged(ChangeEvent<UnityEngine.Object> evt)
+    {
+        skillConfig = evt.newValue as SkillConfig;
+    }
+
     #endregion Config
-    private SkillConfig skillConfig;
 
 
     #region
+    private SkillConfig skillConfig;
 
     #endregion
 
