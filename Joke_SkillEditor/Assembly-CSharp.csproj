@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Config\ClothConfig.cs" />
     <Compile Include="Assets\Scripts\Serialization\Serialization_Dic.cs" />
     <Compile Include="Assets\Scripts\Serialization\Serialization_Color.cs" />
+    <Compile Include="Assets\Scripts\Config\Skill\SkillConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Res\ModularRPGHeroesPBR\Shader\PBRMaskTint.shader" />
