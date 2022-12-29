@@ -11,7 +11,9 @@
         <ui:VisualElement name="Right" style="flex-grow: 1; height: auto; width: auto; margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 5px;">
             <ui:IMGUIContainer name="TimeShaft" style="height: 30px; min-height: 30px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); border-bottom-width: 0.5px; margin-right: 13px;" />
             <ui:ScrollView name="MainContentView" mode="VerticalAndHorizontal" horizontal-scroller-visibility="AlwaysVisible" vertical-scroller-visibility="AlwaysVisible">
-                <ui:VisualElement name="ContentListView" style="min-height: 1000px;" />
+                <ui:VisualElement name="ContentListView" style="min-height: 1000px;">
+                    <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 10000px; height: 10000px;" />
+                </ui:VisualElement>
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>

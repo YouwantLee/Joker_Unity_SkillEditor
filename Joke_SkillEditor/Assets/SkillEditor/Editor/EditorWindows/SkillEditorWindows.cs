@@ -2,7 +2,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
-using System;
 using UnityEditor.SceneManagement;
 
 public class SkillEditorWindows : EditorWindow
@@ -140,11 +139,20 @@ public class SkillEditorWindows : EditorWindow
     #endregion Config
 
     #region TimeShaft
-    private IMGUIContainer timeShaft;
+    private IMGUIContainer timeShaft;//时间轴容器
+    private VisualElement contentContainer;// ScrollView 容器,方便得出  ScrollView 往左往右拽的尺寸坐标 
+    /// <summary>
+    /// 当前内容区域的偏移坐标
+    /// </summary>
+    private float contentOffsetPos { get => Mathf.Abs(contentContainer.transform.position.x); }
 
     private void InitTimeShaft()
     {
         timeShaft = root.Q<IMGUIContainer>("TimeShaft");
+
+        ScrollView MainContentView = root.Q<ScrollView>("MainContentView");
+        contentContainer = MainContentView.Q<VisualElement>("unity-content-container");
+
         timeShaft.onGUIHandler = DrawTimeShaft;
 
     }
@@ -156,9 +164,15 @@ public class SkillEditorWindows : EditorWindow
         Rect rect = timeShaft.contentRect; //时间轴的尺寸
 
         //起始索引
-        int index = 0;
+        int index = Mathf.CeilToInt(contentOffsetPos / skillEditorConfig.frameUnitWidth);
+        //计算绘制起点的偏移
+        float startOffset = 0;
+        //10-(98 % 10)
+        //=10-8=2
+        if (index > 0) startOffset = skillEditorConfig.frameUnitWidth - (contentOffsetPos % skillEditorConfig.frameUnitWidth);
+
         int tickStep = 5;
-        for (int i = 0; i < rect.width; i += skillEditorConfig.frameUnitWidth)
+        for (float i = startOffset; i < rect.width; i += skillEditorConfig.frameUnitWidth)
         {
             //绘制长线条、文本
             if (index % tickStep == 0)
