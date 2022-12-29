@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.SceneManagement;
+using System;
 
 public class SkillEditorWindows : EditorWindow
 {
@@ -154,7 +155,7 @@ public class SkillEditorWindows : EditorWindow
         contentContainer = MainContentView.Q<VisualElement>("unity-content-container");
 
         timeShaft.onGUIHandler = DrawTimeShaft;
-
+        timeShaft.RegisterCallback<WheelEvent>(TimeShaftWheel);
     }
 
     private void DrawTimeShaft()
@@ -171,7 +172,14 @@ public class SkillEditorWindows : EditorWindow
         //=10-8=2
         if (index > 0) startOffset = skillEditorConfig.frameUnitWidth - (contentOffsetPos % skillEditorConfig.frameUnitWidth);
 
-        int tickStep = 5;
+        int tickStep = SkillEditorConfig.MaxFrameWidthLV + 1 - (skillEditorConfig.frameUnitWidth / SkillEditorConfig.StandframeUnitWidth);
+        //tickStep = 10+1-(100/10)=1
+        //tickStep = 11-9=2
+        //tickStep = 11-8=3
+        //tickStep = 11-1=10
+
+        tickStep = Mathf.Clamp(tickStep / 2, 1, SkillEditorConfig.MaxFrameWidthLV);
+
         for (float i = startOffset; i < rect.width; i += skillEditorConfig.frameUnitWidth)
         {
             //绘制长线条、文本
@@ -179,7 +187,7 @@ public class SkillEditorWindows : EditorWindow
             {
                 Handles.DrawLine(new Vector3(i, rect.height - 10), new Vector3(i, rect.height));
                 string indexStr = index.ToString();
-                GUI.Label(new Rect(i - indexStr.Length * 4.5f, rect.y, 35, 20), indexStr);
+                GUI.Label(new Rect(i - indexStr.Length * 4.5f, 0, 35, 20), indexStr);
             }
             else
             {
@@ -188,9 +196,17 @@ public class SkillEditorWindows : EditorWindow
 
             index += 1;
         }
-
-
         Handles.EndGUI();
+    }
+
+    private void TimeShaftWheel(WheelEvent evt)
+    {
+        int delta = (int)evt.delta.y;
+        skillEditorConfig.frameUnitWidth = Mathf.Clamp(skillEditorConfig.frameUnitWidth - delta,
+            SkillEditorConfig.StandframeUnitWidth, SkillEditorConfig.MaxFrameWidthLV * SkillEditorConfig.StandframeUnitWidth);
+
+        timeShaft.MarkDirtyLayout();//标记为需要立刻重新绘制的
+        //Debug.Log(delta);
     }
 
     #endregion
@@ -212,8 +228,20 @@ public class SkillEditorWindows : EditorWindow
 public class SkillEditorConfig
 {
     /// <summary>
-    /// 每帧的单位像素刻度
+    /// 每帧的标准单位像素刻度
+    /// </summary>
+    public const int StandframeUnitWidth = 10;
+
+    /// <summary>
+    /// 分10级
+    /// </summary>
+    public const int MaxFrameWidthLV = 10;
+
+    /// <summary>
+    /// 当前的帧单位刻度（受缩放而变化）
     /// </summary>
     public int frameUnitWidth = 10;
+
+
 
 }
