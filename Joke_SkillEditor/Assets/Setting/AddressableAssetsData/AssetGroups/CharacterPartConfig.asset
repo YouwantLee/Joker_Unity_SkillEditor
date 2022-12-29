@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: CharacterPartConfig
+  m_EditorClassIdentifier: 
+  m_GroupName: CharacterPartConfig
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 6ac60ee89d80f8a4c8a907e022ab7865
+  m_SerializeEntries:
+  - m_GUID: 2e737c77031084f4b9ce44d0f0dc84f5
+    m_Address: FaceConfig_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4043c5a720353a94b87d3a5ddf0bd1c6
+    m_Address: ClothConfig_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a8ba84c46d1f67a40a80bf16dbfd0e76
+    m_Address: ClothConfig_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6e8bdcf8d478540419dee37e532bcca6
+    m_Address: ClothConfig_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8872d3eeb6289dc469e943f5dc3b6211
+    m_Address: ClothConfig_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1d56179514e0d974e816eb82a62ee233
+    m_Address: ClothConfig_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 47b20a4f308e5f74da6a1bec519367b7
+    m_Address: FaceConfig_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1e58677c2c3a7f349a2bdaddf03c4bb7
+    m_Address: FaceConfig_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4542201cea6deb34bb979b4c756f63a6
+    m_Address: FaceConfig_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c27728f1d141d046a1bb6708039f9c5
+    m_Address: FaceConfig_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d1d0668dd9de6224e8e013e70e44df6c
+    m_Address: HairConfig_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: de4e42da18418af4c90f5bc8bd1f2606
+    m_Address: HairConfig_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 59e2b8c12c4bb4b4b9c352a6f8d14931
+    m_Address: HairConfig_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 50f02f4d1afbd054f9c27c6d2370e1aa
+    m_Address: HairConfig_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1111fc33924142144a412a136eb54e67
+    m_Address: HairConfig_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0a1ea7ef7e363634e8b796202c6ddaf6
+    m_Address: HairConfig_6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 57137900c2255ae429756b2a2f5fdf15
+    m_Address: HairConfig_7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: bf38bea96cf6fe84ea26b28dec444a9f, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 00ca23b4f4f98434893cecaf38d40a45, type: 2}
+    - {fileID: 11400000, guid: e6f1b6b306d48ba4abb073ed2ee668af, type: 2}

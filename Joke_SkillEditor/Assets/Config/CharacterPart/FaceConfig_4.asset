@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2236915ac1614ae4280599e973a9fe69, type: 3}
+  m_Name: FaceConfig_4
+  m_EditorClassIdentifier: Assembly-CSharp::FaceConfigModel
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: "\u4E00\u672C\u6B63\u7ECF"
+  ProfessionTypes: 00000000010000000200000003000000
+  CharacterParType: 0
+  Mesh1: {fileID: 4300000, guid: b78c0a6c7811a0349b32ee73d400ad04, type: 2}

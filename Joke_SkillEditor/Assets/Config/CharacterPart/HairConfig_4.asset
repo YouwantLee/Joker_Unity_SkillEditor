@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5deedf245c169634e9f76dcca95a48ca, type: 3}
+  m_Name: HairConfig_4
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Name: "\u5927\u80CC\u5934"
+  ProfessionTypes: 00000000010000000200000003000000
+  CharacterPartType: 1
+  Mesh1: {fileID: 4300000, guid: 589139722c9ea954384a0d3d44b89a97, type: 2}
+  ColorIndex: 1
+  Mesh2: {fileID: 4300000, guid: 8aed44471c8d3a94b9bfc457724449d3, type: 2}

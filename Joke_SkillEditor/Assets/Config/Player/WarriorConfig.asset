@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ab2a8c5e034c54a828372b7c26d897, type: 3}
+  m_Name: WarriorConfig
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 7400000, guid: 83fc6e6a95cdaf542a6855389e2b3474, type: 2}
+    - {fileID: 7400000, guid: f98e337e7f152ec42927a4e1e1de2711, type: 2}
+    - {fileID: 7400000, guid: 2783c13af1d7a644aa9523b0945df4e8, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: StandAnimationDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.AnimationClip,
+        UnityEngine.AnimationModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Idle
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Walk
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Run
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  WalkSpeed: 2
+  RunSpeed: 1.5
+  Walk2RunTransitionSpeed: 1
+  FootStepAudioClips:
+  - {fileID: 8300000, guid: f7730f403e3ed3848a39f5f4d41c30a8, type: 3}
+  - {fileID: 8300000, guid: c5212058eaf72594dbb061ac4573773b, type: 3}
+  - {fileID: 8300000, guid: 86702437b42009f4cb99665589097259, type: 3}
+  - {fileID: 8300000, guid: 4ee907eac4eaccb4b9328c2a2f883611, type: 3}
+  - {fileID: 8300000, guid: 5f6dd6c17f242864b83034274b22538b, type: 3}
+  - {fileID: 8300000, guid: 4eff82364e96cea4eb338f0eafb58acf, type: 3}
+  - {fileID: 8300000, guid: 184750abe7d233e4db4a922f4f3300b1, type: 3}
+  - {fileID: 8300000, guid: 9e6d1d31261ce234dab29108ebe2ff8e, type: 3}
+  - {fileID: 8300000, guid: 4148ff86046dcce4dbf204f482831839, type: 3}
+  - {fileID: 8300000, guid: eaadf3de69efd9b4884f98b04e496220, type: 3}
+  RotateSpeed: 10
+  ApplyRootMotionForMove: 1
