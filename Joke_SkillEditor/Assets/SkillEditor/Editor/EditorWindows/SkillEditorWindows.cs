@@ -409,7 +409,7 @@ public class SkillEditorWindows : EditorWindow
     public SkillConfig SkillConfig { get => skillConfig; }
     private SkillEditorConfig skillEditorConfig = new SkillEditorConfig();
 
-    private void SaveConfig()
+    public void SaveConfig()
     {
         if (skillConfig != null)
         {

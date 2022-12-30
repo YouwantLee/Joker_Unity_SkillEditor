@@ -41,6 +41,7 @@ public class AnimationTrack : SkillTrackBase
             int selectFrameIndex = SkillEditorWindows.Instance.GetFrameIndexByPos(evt.localMousePosition.x);
             bool canPlace = true;
             int durationFrame = -1;//-1 代表可以用原本 AnimationClip 的持续时间
+            int clipFrameCount = (int)(clip.length * clip.frameRate);
             int nextTrackItem = -1;
             int currentOffset = int.MaxValue;
 
@@ -69,10 +70,32 @@ public class AnimationTrack : SkillTrackBase
             //实际的放置
             if (canPlace)
             {
+                // 右边有其他 TrackItem ，要考虑 Track 不能重叠的问题
+                if (nextTrackItem != -1)
+                {
+                    int offset = clipFrameCount - currentOffset;
+                    durationFrame = offset < 0 ? clipFrameCount : currentOffset; //计算这个空间能不能完整将动画片段放进去
+                }
+                else
+                {
+                    //右侧啥都没有
+                    durationFrame = clipFrameCount;
+                }
 
+                //构建动画数据
+                SkillAnimationEvent animationEvent = new SkillAnimationEvent()
+                {
+                    AnimationClip = clip,
+                    DurationFrame = durationFrame,
+                    TransitionTime = 0.25f
+                };
+
+                //保存新增的动画数据
+                SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic.Add(selectFrameIndex, animationEvent);
+                SkillEditorWindows.Instance.SaveConfig();
+
+                //同步修改编辑器视图
             }
-
-            Debug.Log(canPlace);
 
 
         }
