@@ -58,9 +58,13 @@
   <ItemGroup>
     <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
     <Compile Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\SkillTrackBase.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uss" />
+    <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackContent.uxml" />
+    <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackMenu.uxml" />
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uxml" />
   </ItemGroup>
   <ItemGroup>

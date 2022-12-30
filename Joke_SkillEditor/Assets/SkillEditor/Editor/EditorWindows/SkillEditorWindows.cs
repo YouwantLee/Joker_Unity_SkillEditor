@@ -414,12 +414,15 @@ public class SkillEditorWindows : EditorWindow
 
 
     #region  Track
+    private VisualElement trackMenuParent;
     private VisualElement ContentListView;
 
     private void InitContent()
     {
+        trackMenuParent = root.Q<VisualElement>("TrackMenu");
         ContentListView = root.Q<VisualElement>(nameof(ContentListView));
         UpdateContentSize();
+        InitAnimationTrack();
     }
 
     /// <summary>
@@ -430,6 +433,11 @@ public class SkillEditorWindows : EditorWindow
         ContentListView.style.width = skillEditorConfig.frameUnitWidth * CurrentFrameCount;
     }
 
+    private void InitAnimationTrack()
+    {
+        AnimationTrack animationTrack = new AnimationTrack();
+        animationTrack.Init(trackMenuParent, ContentListView);
+    }
 
     #endregion
 
