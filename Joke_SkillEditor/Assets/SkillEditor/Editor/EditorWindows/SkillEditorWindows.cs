@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.SceneManagement;
-using System;
 
 public class SkillEditorWindows : EditorWindow
 {
@@ -141,21 +140,53 @@ public class SkillEditorWindows : EditorWindow
 
     #region TimeShaft
     private IMGUIContainer timeShaft;//时间轴容器
+    private IMGUIContainer selectLine;// 
     private VisualElement contentContainer;// ScrollView 容器,方便得出  ScrollView 往左往右拽的尺寸坐标 
+    private VisualElement contentViewPort; //时间线的显示区域  
+
+    private int currentSelectFrameIndex;
+    /// <summary>
+    /// 鼠标位置+下方容器的位置
+    /// </summary>
+    private int CurrentSelectFrameIndex
+    {
+        get => currentSelectFrameIndex;
+        set
+        {
+            if (currentSelectFrameIndex == value) return;
+            currentSelectFrameIndex = value;
+            UpdateTimerShaftView();
+        }
+    }
+
     /// <summary>
     /// 当前内容区域的偏移坐标
     /// </summary>
     private float contentOffsetPos { get => Mathf.Abs(contentContainer.transform.position.x); }
+    /// <summary>
+    /// 当前帧在时间轴的像素坐标位置（鼠标位置+下方容器的移动位置）
+    /// </summary>
+    private float currentSelectFramePos { get => CurrentSelectFrameIndex * skillEditorConfig.frameUnitWidth; }
+    private bool timeShaftIsMouseEnter = false;
 
     private void InitTimeShaft()
     {
-        timeShaft = root.Q<IMGUIContainer>("TimeShaft");
-
         ScrollView MainContentView = root.Q<ScrollView>("MainContentView");
         contentContainer = MainContentView.Q<VisualElement>("unity-content-container");
+        contentViewPort = MainContentView.Q<VisualElement>("unity-content-viewport");
+
+        timeShaft = root.Q<IMGUIContainer>("TimeShaft");
+        selectLine = root.Q<IMGUIContainer>("SelectLine");
+
 
         timeShaft.onGUIHandler = DrawTimeShaft;
         timeShaft.RegisterCallback<WheelEvent>(TimeShaftWheel);
+        timeShaft.RegisterCallback<MouseDownEvent>(TimeShaftMouseDown);
+        timeShaft.RegisterCallback<MouseMoveEvent>(TimeShaftMouseMove);
+        timeShaft.RegisterCallback<MouseUpEvent>(TimeShaftMouseUp);
+        timeShaft.RegisterCallback<MouseOutEvent>(TimeShaftMouseOut);
+
+        selectLine.onGUIHandler = DrawSelectLine;
     }
 
     private void DrawTimeShaft()
@@ -205,8 +236,66 @@ public class SkillEditorWindows : EditorWindow
         skillEditorConfig.frameUnitWidth = Mathf.Clamp(skillEditorConfig.frameUnitWidth - delta,
             SkillEditorConfig.StandframeUnitWidth, SkillEditorConfig.MaxFrameWidthLV * SkillEditorConfig.StandframeUnitWidth);
 
-        timeShaft.MarkDirtyLayout();//标记为需要立刻重新绘制的
+        UpdateTimerShaftView();
         //Debug.Log(delta);
+    }
+
+
+    private void TimeShaftMouseDown(MouseDownEvent evt)
+    {
+        //让选中线位置卡在帧的位置上
+        timeShaftIsMouseEnter = true;
+        CurrentSelectFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
+
+    }
+    private void TimeShaftMouseMove(MouseMoveEvent evt)
+    {
+        if (timeShaftIsMouseEnter)
+        {
+            CurrentSelectFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
+        }
+    }
+
+    private void TimeShaftMouseUp(MouseUpEvent evt)
+    {
+        timeShaftIsMouseEnter = false;
+    }
+
+    private void TimeShaftMouseOut(MouseOutEvent evt)
+    {
+        timeShaftIsMouseEnter = false;
+    }
+
+    /// <summary>
+    /// 根据鼠标坐标获取帧像素索引；
+    /// 鼠标位置+下方容器的位置
+    /// </summary>
+    /// <param name="x"></param>
+    /// <returns></returns>
+    private int GetFrameIndexByMousePos(float x)
+    {
+        float pos = x + contentOffsetPos;
+        return Mathf.RoundToInt(pos / skillEditorConfig.frameUnitWidth);
+    }
+
+
+    private void DrawSelectLine()
+    {
+        //判断当前选中帧是否在视图范围内
+        if (currentSelectFramePos >= contentOffsetPos)
+        {
+            Handles.BeginGUI();
+            Handles.color = Color.white;
+            float x = currentSelectFramePos - contentOffsetPos;
+            Handles.DrawLine(new Vector3(x, 0), new Vector3(x, contentViewPort.contentRect.height + timeShaft.contentRect.height));
+            Handles.EndGUI();
+        }
+    }
+
+    private void UpdateTimerShaftView()
+    {
+        timeShaft.MarkDirtyLayout();//标记为需要立刻重新绘制的
+        selectLine.MarkDirtyLayout();//标记为需要立刻重新绘制的
     }
 
     #endregion

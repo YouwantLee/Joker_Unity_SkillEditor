@@ -15,6 +15,7 @@
                     <ui:Button text="Button" display-tooltip-when-elided="true" style="width: 10000px; height: 10000px;" />
                 </ui:VisualElement>
             </ui:ScrollView>
+            <ui:IMGUIContainer name="SelectLine" style="position: absolute; left: 10px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
