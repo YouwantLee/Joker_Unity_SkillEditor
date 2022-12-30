@@ -12,6 +12,9 @@ public class AnimationTrackItem : TrackItemBase
     private float frameUnitWidth;
     private SkillAnimationEvent animationEvent;
 
+    private VisualElement mainDragArea;
+    private VisualElement animationOverLine;
+
     public Label root { get; private set; }
 
     public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
@@ -22,6 +25,8 @@ public class AnimationTrackItem : TrackItemBase
         this.animationEvent = animationEvent;
 
         root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackItemAssetPath).Instantiate().Query<Label>();//不要容器，直接持有目标物体
+        mainDragArea = root.Q<VisualElement>("Main");
+        animationOverLine = root.Q<VisualElement>("OverLine");
         parent.Add(root);
 
         RestView(frameUnitWidth);
@@ -37,6 +42,21 @@ public class AnimationTrackItem : TrackItemBase
         mainPos.x = frameIndex * frameUnitWidth;
         root.transform.position = mainPos;
         root.style.width = animationEvent.DurationFrame * frameUnitWidth;
+
+        //计算动画结束线的位置
+        int animationClipFrameCount = (int)(animationEvent.AnimationClip.length * animationEvent.AnimationClip.frameRate);
+        if (animationClipFrameCount > animationEvent.DurationFrame)
+        {
+            animationOverLine.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            animationOverLine.style.display = DisplayStyle.Flex;
+            Vector3 overLinePos = animationOverLine.transform.position;
+            //overLinePos.x = animationClipFrameCount * frameUnitWidth - animationOverLine.style.width.value.value / 2;
+            overLinePos.x = animationClipFrameCount * frameUnitWidth - 1; //线条宽度为2，取一半
+            animationOverLine.transform.position = overLinePos;
+        }
 
     }
 
