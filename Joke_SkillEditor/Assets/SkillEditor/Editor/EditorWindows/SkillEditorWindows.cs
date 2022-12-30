@@ -406,6 +406,7 @@ public class SkillEditorWindows : EditorWindow
 
     #region config
     private SkillConfig skillConfig;
+    public SkillConfig SkillConfig { get => skillConfig; }
     private SkillEditorConfig skillEditorConfig = new SkillEditorConfig();
 
     private void SaveConfig()
