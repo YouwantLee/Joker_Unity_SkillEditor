@@ -7,7 +7,20 @@
         <uie:ObjectField label="技能配置文件" name="SkillConfigObjectField" type="SkillConfig,Assembly-CSharp" allow-scene-objects="false" style="flex-grow: 1; flex-shrink: 1; align-items: center; margin-left: 15px; font-size: 15px;" />
     </ui:VisualElement>
     <ui:VisualElement name="Conent" style="flex-direction: row; height: auto; width: auto;">
-        <ui:VisualElement name="Left" style="width: 200px; min-width: 200px; border-right-width: 2px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); margin-right: 0;" />
+        <ui:VisualElement name="Left" style="width: 200px; min-width: 200px; border-right-width: 2px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); margin-right: 0;">
+            <ui:VisualElement name="Controller" style="height: 30px; border-bottom-width: 0.5px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); flex-direction: row;">
+                <ui:VisualElement name="PlayControl" style="flex-direction: row;">
+                    <ui:Button text="&lt;" display-tooltip-when-elided="true" name="PreviouFrameButton" style="font-size: 15px;" />
+                    <ui:Button text="▶" display-tooltip-when-elided="true" name="PlayButton" style="font-size: 10px;" />
+                    <ui:Button text="&gt;" display-tooltip-when-elided="true" name="NextFrameButton" style="font-size: 15px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="FrameControl" style="flex-direction: row; flex-shrink: 0; flex-grow: 1; justify-content: flex-end; align-items: center;">
+                    <ui:TextField picking-mode="Ignore" name="CurrentFrameTextField" style="width: 40px; height: 20px;" />
+                    <ui:Label text="/" display-tooltip-when-elided="true" style="font-size: 15px;" />
+                    <ui:TextField picking-mode="Ignore" name="FrameCountTextField" style="width: 40px; height: 20px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
         <ui:VisualElement name="Right" style="flex-grow: 1; height: auto; width: auto; margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 5px;">
             <ui:IMGUIContainer name="TimeShaft" style="height: 30px; min-height: 30px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgb(32, 32, 32); border-bottom-color: rgb(32, 32, 32); border-bottom-width: 0.5px; margin-right: 13px;" />
             <ui:ScrollView name="MainContentView" mode="VerticalAndHorizontal" horizontal-scroller-visibility="AlwaysVisible" vertical-scroller-visibility="AlwaysVisible">
