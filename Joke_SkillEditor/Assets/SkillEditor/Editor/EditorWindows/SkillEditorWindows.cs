@@ -26,6 +26,7 @@ public class SkillEditorWindows : EditorWindow
         InitTopMenu();
         InitTimeShaft();
         InitConsole();
+        InitContent();
 
         if (skillConfig != null)
         {
@@ -33,7 +34,7 @@ public class SkillEditorWindows : EditorWindow
         }
         else
         {
-            currentFrameCount = 100;
+            CurrentFrameCount = 100;
         }
 
         CurrentSelectFrameIndex = 0;
@@ -195,6 +196,9 @@ public class SkillEditorWindows : EditorWindow
                 skillConfig.FrameCount = currentFrameCount;
                 SaveConfig();
             }
+
+            //Content 区域的尺寸变化
+            UpdateContentSize();
         }
     }
 
@@ -278,7 +282,7 @@ public class SkillEditorWindows : EditorWindow
             SkillEditorConfig.StandframeUnitWidth, SkillEditorConfig.MaxFrameWidthLV * SkillEditorConfig.StandframeUnitWidth);
 
         UpdateTimerShaftView();
-        //Debug.Log(delta);
+        UpdateContentSize();
     }
 
 
@@ -409,7 +413,25 @@ public class SkillEditorWindows : EditorWindow
     #endregion
 
 
+    #region  Track
+    private VisualElement ContentListView;
 
+    private void InitContent()
+    {
+        ContentListView = root.Q<VisualElement>(nameof(ContentListView));
+        UpdateContentSize();
+    }
+
+    /// <summary>
+    /// Content 区域的尺寸变化
+    /// </summary>
+    private void UpdateContentSize()
+    {
+        ContentListView.style.width = skillEditorConfig.frameUnitWidth * CurrentFrameCount;
+    }
+
+
+    #endregion
 
 
 }
