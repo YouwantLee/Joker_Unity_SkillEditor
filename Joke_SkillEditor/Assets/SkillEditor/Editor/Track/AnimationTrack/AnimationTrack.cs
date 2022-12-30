@@ -8,16 +8,43 @@ using UnityEngine.UIElements;
 public class AnimationTrack : SkillTrackBase
 {
     public override string MenuAssetPath => "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackMenu.uxml";
-
     public override string TrackAssetPath => "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackContent.uxml";
 
-    public override void Init(VisualElement menuParent, VisualElement trackParent)
+    private Dictionary<int, AnimationTrackItem> trackItemDic = new Dictionary<int, AnimationTrackItem>();
+
+    public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
     {
-        base.Init(menuParent, trackParent);
+        base.Init(menuParent, trackParent, frameWidth);
         track.RegisterCallback<DragUpdatedEvent>(OnDragUpdatedEvent);
         track.RegisterCallback<DragExitedEvent>(OnDragExitedEvent);
+
+        RestView();
     }
 
+    public override void RestView(float frameWidth)
+    {
+        base.RestView(frameWidth);
+        //销毁当前已有
+        foreach (var item in trackItemDic)
+        {
+            track.Remove(item.Value.root);
+        }
+
+        trackItemDic.Clear();
+        if (SkillEditorWindows.Instance.SkillConfig == null) return;
+
+        foreach (var item in SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic)
+        {
+            AnimationTrackItem trackItem = new AnimationTrackItem();
+            trackItem.Init(this, track, item.Key, frameWidth, item.Value);
+            trackItemDic.Add(item.Key, trackItem);
+        }
+
+        //根据数据绘制 TrackItem
+
+    }
+
+    #region  拖拽资源
     private void OnDragUpdatedEvent(DragUpdatedEvent evt)
     {
         UnityEngine.Object[] objs = DragAndDrop.objectReferences;
@@ -26,7 +53,6 @@ public class AnimationTrack : SkillTrackBase
         {
             DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
         }
-
     }
 
     private void OnDragExitedEvent(DragExitedEvent evt)
@@ -101,5 +127,8 @@ public class AnimationTrack : SkillTrackBase
         }
 
     }
+
+    #endregion
+
 
 }

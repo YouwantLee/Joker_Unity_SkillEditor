@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.SceneManagement;
 using System;
+using System.Collections.Generic;
 
 public class SkillEditorWindows : EditorWindow
 {
@@ -151,7 +152,14 @@ public class SkillEditorWindows : EditorWindow
     private void SkillConfigObjectFieldChanged(ChangeEvent<UnityEngine.Object> evt)
     {
         skillConfig = evt.newValue as SkillConfig;
+
+        //刷新轨道
+        ResetTrack();
+        if (skillConfig == null) return;
+
         CurrentFrameCount = skillConfig.FrameCount;
+        CurrentSelectFrameIndex = 0;
+
     }
 
     #endregion Config
@@ -424,14 +432,30 @@ public class SkillEditorWindows : EditorWindow
     #region  Track
     private VisualElement trackMenuParent;
     private VisualElement ContentListView;
+    private List<SkillTrackBase> trackList = new List<SkillTrackBase>();
 
     private void InitContent()
     {
         trackMenuParent = root.Q<VisualElement>("TrackMenu");
         ContentListView = root.Q<VisualElement>(nameof(ContentListView));
         UpdateContentSize();
+
+        InitTrack();
+    }
+
+    private void InitTrack()
+    {
         InitAnimationTrack();
     }
+
+    private void ResetTrack()
+    {
+        for (int i = 0; i < trackList.Count; i++)
+        {
+            trackList[i].RestView(skillEditorConfig.frameUnitWidth);
+        }
+    }
+
 
     /// <summary>
     /// Content 区域的尺寸变化
@@ -444,7 +468,8 @@ public class SkillEditorWindows : EditorWindow
     private void InitAnimationTrack()
     {
         AnimationTrack animationTrack = new AnimationTrack();
-        animationTrack.Init(trackMenuParent, ContentListView);
+        animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.frameUnitWidth);
+        trackList.Add(animationTrack);
     }
 
     #endregion
