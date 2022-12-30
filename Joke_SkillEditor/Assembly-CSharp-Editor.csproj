@@ -62,6 +62,7 @@
     <Compile Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrack.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackItem.uxml" />
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uss" />
     <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackContent.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackMenu.uxml" />
