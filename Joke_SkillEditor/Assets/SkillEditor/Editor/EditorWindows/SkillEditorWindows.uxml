@@ -15,9 +15,9 @@
                     <ui:Button text="&gt;" display-tooltip-when-elided="true" name="NextFrameButton" style="font-size: 15px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="FrameControl" style="flex-direction: row; flex-shrink: 0; flex-grow: 1; justify-content: flex-end; align-items: center;">
-                    <ui:TextField picking-mode="Ignore" name="CurrentFrameTextField" style="width: 40px; height: 20px;" />
+                    <uie:IntegerField value="-1" name="CurrentFrameTextField" style="width: 40px; height: 20px;" />
                     <ui:Label text="/" display-tooltip-when-elided="true" style="font-size: 15px;" />
-                    <ui:TextField picking-mode="Ignore" name="FrameCountTextField" style="width: 40px; height: 20px;" />
+                    <uie:IntegerField value="-1" name="FrameCountTextField" tabindex="0" style="width: 40px; height: 20px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

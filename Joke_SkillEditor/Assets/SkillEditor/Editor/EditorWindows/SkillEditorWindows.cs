@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor.SceneManagement;
+using System;
 
 public class SkillEditorWindows : EditorWindow
 {
@@ -24,6 +25,18 @@ public class SkillEditorWindows : EditorWindow
 
         InitTopMenu();
         InitTimeShaft();
+        InitConsole();
+
+        if (skillConfig != null)
+        {
+            SkillConfigObjectField.value = skillConfig;
+        }
+        else
+        {
+            currentFrameCount = 100;
+        }
+
+        CurrentSelectFrameIndex = 0;
     }
 
 
@@ -134,6 +147,7 @@ public class SkillEditorWindows : EditorWindow
     private void SkillConfigObjectFieldChanged(ChangeEvent<UnityEngine.Object> evt)
     {
         skillConfig = evt.newValue as SkillConfig;
+        CurrentFrameCount = skillConfig.FrameCount;
     }
 
     #endregion Config
@@ -144,7 +158,7 @@ public class SkillEditorWindows : EditorWindow
     private VisualElement contentContainer;// ScrollView 容器,方便得出  ScrollView 往左往右拽的尺寸坐标 
     private VisualElement contentViewPort; //时间线的显示区域  
 
-    private int currentSelectFrameIndex;
+    private int currentSelectFrameIndex = -1;
     /// <summary>
     /// 鼠标位置+下方容器的位置
     /// </summary>
@@ -154,8 +168,33 @@ public class SkillEditorWindows : EditorWindow
         set
         {
             if (currentSelectFrameIndex == value) return;
-            currentSelectFrameIndex = value;
+
+            //如果超出范围，更新最大帧
+            if (value > CurrentFrameCount) CurrentFrameCount = value;
+
+            currentSelectFrameIndex = Mathf.Clamp(value, 0, CurrentFrameCount);
+            CurrentFrameTextField.value = currentSelectFrameIndex;
             UpdateTimerShaftView();
+        }
+    }
+
+    private int currentFrameCount;
+    public int CurrentFrameCount
+    {
+        get => currentFrameCount;
+        set
+        {
+            if (currentFrameCount == value) return;
+
+            currentFrameCount = value;
+            FrameCountTextField.value = currentFrameCount;
+
+            //同步给 skillConfig
+            if (skillConfig != null)
+            {
+                skillConfig.FrameCount = currentFrameCount;
+                SaveConfig();
+            }
         }
     }
 
@@ -167,6 +206,8 @@ public class SkillEditorWindows : EditorWindow
     /// 当前帧在时间轴的像素坐标位置（鼠标位置+下方容器的移动位置）
     /// </summary>
     private float currentSelectFramePos { get => CurrentSelectFrameIndex * skillEditorConfig.frameUnitWidth; }
+
+
     private bool timeShaftIsMouseEnter = false;
 
     private void InitTimeShaft()
@@ -300,17 +341,76 @@ public class SkillEditorWindows : EditorWindow
 
     #endregion
 
+    #region Consle
+    private Button PreviouFrameButton;
+    private Button PlayButton;
+    private Button NextFrameButton;
+    private IntegerField CurrentFrameTextField;
+    private IntegerField FrameCountTextField;
 
-    #region
+    private void InitConsole()
+    {
+        PreviouFrameButton = root.Q<Button>(nameof(PreviouFrameButton));
+        PlayButton = root.Q<Button>(nameof(PlayButton));
+        NextFrameButton = root.Q<Button>(nameof(NextFrameButton));
+
+        CurrentFrameTextField = root.Q<IntegerField>(nameof(CurrentFrameTextField));
+        FrameCountTextField = root.Q<IntegerField>(nameof(FrameCountTextField));
+
+        PreviouFrameButton.clicked += PreviouFrameButtonClicked;
+        PlayButton.clicked += PlayButtonClicked;
+        NextFrameButton.clicked += NextFrameButtonClicked;
+
+        CurrentFrameTextField.RegisterValueChangedCallback(CurrentFrameTextFieldValueChanged);
+        FrameCountTextField.RegisterValueChangedCallback(FrameCountTextFieldValueChanged);
+
+    }
+
+    private void PreviouFrameButtonClicked()
+    {
+        CurrentSelectFrameIndex -= 1;
+    }
+
+    private void PlayButtonClicked()
+    {
+    }
+
+    private void NextFrameButtonClicked()
+    {
+        CurrentSelectFrameIndex += 1;
+    }
+
+    private void CurrentFrameTextFieldValueChanged(ChangeEvent<int> evt)
+    {
+        CurrentSelectFrameIndex = evt.newValue;
+    }
+    private void FrameCountTextFieldValueChanged(ChangeEvent<int> evt)
+    {
+        CurrentFrameCount = evt.newValue;
+    }
+
+
+    #endregion
+
+
+    #region config
     private SkillConfig skillConfig;
     private SkillEditorConfig skillEditorConfig = new SkillEditorConfig();
+
+    private void SaveConfig()
+    {
+        if (skillConfig != null)
+        {
+            EditorUtility.SetDirty(skillConfig);
+            AssetDatabase.SaveAssetIfDirty(skillConfig);
+        }
+    }
+
     #endregion
 
 
 
-    #region
 
-    #endregion
 
 }
 
