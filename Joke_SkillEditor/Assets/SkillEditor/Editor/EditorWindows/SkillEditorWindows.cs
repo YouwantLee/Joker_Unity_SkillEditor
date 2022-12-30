@@ -7,6 +7,8 @@ using System;
 
 public class SkillEditorWindows : EditorWindow
 {
+    public static SkillEditorWindows Instance;
+
     [MenuItem("SkillEditor/SkillEditorWindows")]
     public static void ShowExample()
     {
@@ -17,6 +19,7 @@ public class SkillEditorWindows : EditorWindow
     private VisualElement root;
     public void CreateGUI()
     {
+        Instance = this;
         root = rootVisualElement;
 
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/SkillEditor/Editor/EditorWindows/SkillEditorWindows.uxml");
@@ -319,8 +322,12 @@ public class SkillEditorWindows : EditorWindow
     /// <returns></returns>
     private int GetFrameIndexByMousePos(float x)
     {
-        float pos = x + contentOffsetPos;
-        return Mathf.RoundToInt(pos / skillEditorConfig.frameUnitWidth);
+        return GetFrameIndexByPos(x + contentOffsetPos);
+    }
+
+    public int GetFrameIndexByPos(float x)
+    {
+        return Mathf.RoundToInt(x / skillEditorConfig.frameUnitWidth);
     }
 
 
