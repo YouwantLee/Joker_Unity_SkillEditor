@@ -62,6 +62,7 @@
     <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\TrackItemBase.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\SkillTrackBase.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Inspector\SkillEditorInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackItem.uxml" />

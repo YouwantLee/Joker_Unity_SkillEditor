@@ -12,6 +12,7 @@ public class AnimationTrackItem : TrackItemBase
     private int frameIndex;
     private float frameUnitWidth;
     private SkillAnimationEvent animationEvent;
+    public SkillAnimationEvent AnimationEvent { get => animationEvent; }
 
     public Label root { get; private set; }
     private VisualElement mainDragArea;
@@ -82,6 +83,8 @@ public class AnimationTrackItem : TrackItemBase
         startDragPosX = evt.mousePosition.x;
         startDragFrameIndex = frameIndex;
         mouseDrag = true;
+
+        SkillEditorWindows.Instance.ShowTrackItemOnInspector(this);
     }
 
     private void OnMouseUpEvent(MouseUpEvent evt)

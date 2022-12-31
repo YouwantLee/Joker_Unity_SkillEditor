@@ -478,7 +478,15 @@ public class SkillEditorWindows : EditorWindow
         trackList.Add(animationTrack);
     }
 
+
+    public void ShowTrackItemOnInspector(TrackItemBase trackItem)
+    {
+        SkillEditorInspector.SetTrackItem(trackItem);
+        Selection.activeObject = this;
+    }
     #endregion
+
+
 
 
 }
