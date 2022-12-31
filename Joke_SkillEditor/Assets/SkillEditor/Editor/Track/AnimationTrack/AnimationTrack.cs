@@ -79,7 +79,7 @@ public class AnimationTrack : SkillTrackBase
                     //不能放置
                     canPlace = false;
                     break;
-                }  
+                }
 
                 //找到右侧的最近 TrackItem
                 if (item.Key > selectFrameIndex)
@@ -130,5 +130,18 @@ public class AnimationTrack : SkillTrackBase
 
     #endregion
 
+    public bool CheckFrameIndexOnDrag(int targetindex)
+    {
+        foreach (var item in SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic)
+        {
+            //不允许 targetindex 在某个 TrackItem 中间
+            if (targetindex > item.Key && targetindex < item.Key + item.Value.DurationFrame)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }

@@ -17,10 +17,6 @@ public class AnimationTrackItem : TrackItemBase
     private VisualElement mainDragArea;
     private VisualElement animationOverLine;
 
-    private static Color normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
-    private static Color selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
-
-    private bool mouseDrag = false;
 
     public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
     {
@@ -72,20 +68,32 @@ public class AnimationTrackItem : TrackItemBase
     }
 
 
+    #region  鼠标交互
+
+    private static Color normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
+    private static Color selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
+    private bool mouseDrag = false;
+    private float startDragPosX;
+    private int startDragFrameIndex;
+
     private void OnMouseDownEvent(MouseDownEvent evt)
     {
         root.style.backgroundColor = selectColor;
+        startDragPosX = evt.mousePosition.x;
+        startDragFrameIndex = frameIndex;
         mouseDrag = true;
     }
 
     private void OnMouseUpEvent(MouseUpEvent evt)
     {
         mouseDrag = false;
+        ApplyDrag();
     }
 
     private void OnMouseOutEvent(MouseOutEvent evt)
     {
         root.style.backgroundColor = normalColor;
+        if (mouseDrag) ApplyDrag();
         mouseDrag = false;
     }
 
@@ -93,9 +101,45 @@ public class AnimationTrackItem : TrackItemBase
     {
         if (mouseDrag)
         {
-            Debug.Log(evt.mousePosition.x);
+            float offsetPos = evt.mousePosition.x - startDragPosX;
+            int offsetFrame = Mathf.RoundToInt(offsetPos / frameUnitWidth);
+            int targetFrameIndex = startDragFrameIndex + offsetFrame;
+            bool checkDrag = false;
+
+            if (targetFrameIndex < 0) return; //不考虑拖拽到负数的情况
+
+            if (offsetFrame < 0)
+            {
+                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex);
+            }
+            else if (offsetFrame > 0)
+            {
+                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex + animationEvent.DurationFrame);
+            }
+            else return;
+
+            if (checkDrag)
+            {
+                //确定修改的数据
+                frameIndex = targetFrameIndex;
+
+                //如果超过右侧边界，拓展边界
+                if (frameIndex + animationEvent.DurationFrame > SkillEditorWindows.Instance.SkillConfig.FrameCount)
+                {
+                    SkillEditorWindows.Instance.CurrentFrameCount = frameIndex + animationEvent.DurationFrame;
+                }
+
+                //刷新视图
+                RestView(frameUnitWidth);
+            }
         }
     }
 
+    private void ApplyDrag()
+    {
+
+    }
+
+    #endregion
 
 }
