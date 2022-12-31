@@ -30,16 +30,16 @@ public abstract class SkillTrackBase
     /// <summary>
     /// 在当前宽高进行刷新（内部变化）
     /// </summary>
-    public virtual void RestView()
+    public virtual void ResetView()
     {
-        RestView(frameWidth);
+        ResetView(frameWidth);
     }
 
     /// <summary>
     /// 宽高有变化的刷新（滚轮滑动）
     /// </summary>
     /// <param name="frameWidth"></param>
-    public virtual void RestView(float frameWidth)
+    public virtual void ResetView(float frameWidth)
     {
         this.frameWidth = frameWidth;
     }

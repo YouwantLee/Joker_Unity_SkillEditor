@@ -458,7 +458,7 @@ public class SkillEditorWindows : EditorWindow
     {
         for (int i = 0; i < trackList.Count; i++)
         {
-            trackList[i].RestView(skillEditorConfig.frameUnitWidth);
+            trackList[i].ResetView(skillEditorConfig.frameUnitWidth);
         }
     }
 

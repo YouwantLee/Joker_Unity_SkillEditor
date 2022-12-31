@@ -36,10 +36,10 @@ public class AnimationTrackItem : TrackItemBase
         mainDragArea.RegisterCallback<MouseOutEvent>(OnMouseOutEvent);
         mainDragArea.RegisterCallback<MouseMoveEvent>(OnMouseMoveEvent);
 
-        RestView(frameUnitWidth);
+        ResetView(frameUnitWidth);
     }
 
-    public void RestView(float frameUnitWidth)
+    public void ResetView(float frameUnitWidth)
     {
         this.frameUnitWidth = frameUnitWidth;
         root.text = animationEvent.AnimationClip.name;
@@ -86,8 +86,8 @@ public class AnimationTrackItem : TrackItemBase
 
     private void OnMouseUpEvent(MouseUpEvent evt)
     {
+        if (mouseDrag) ApplyDrag();
         mouseDrag = false;
-        ApplyDrag();
     }
 
     private void OnMouseOutEvent(MouseOutEvent evt)
@@ -130,14 +130,17 @@ public class AnimationTrackItem : TrackItemBase
                 }
 
                 //À¢–¬ ”Õº
-                RestView(frameUnitWidth);
+                ResetView(frameUnitWidth);
             }
         }
     }
 
     private void ApplyDrag()
     {
-
+        if (startDragFrameIndex != frameIndex)
+        {
+            animationTrack.SetFrameIndex(startDragFrameIndex, frameIndex);
+        }
     }
 
     #endregion
