@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -12,10 +13,14 @@ public class AnimationTrackItem : TrackItemBase
     private float frameUnitWidth;
     private SkillAnimationEvent animationEvent;
 
+    public Label root { get; private set; }
     private VisualElement mainDragArea;
     private VisualElement animationOverLine;
 
-    public Label root { get; private set; }
+    private static Color normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
+    private static Color selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
+
+    private bool mouseDrag = false;
 
     public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
     {
@@ -28,6 +33,12 @@ public class AnimationTrackItem : TrackItemBase
         mainDragArea = root.Q<VisualElement>("Main");
         animationOverLine = root.Q<VisualElement>("OverLine");
         parent.Add(root);
+
+        //°ó¶¨ÊÂ¼þ
+        mainDragArea.RegisterCallback<MouseDownEvent>(OnMouseDownEvent);
+        mainDragArea.RegisterCallback<MouseUpEvent>(OnMouseUpEvent);
+        mainDragArea.RegisterCallback<MouseOutEvent>(OnMouseOutEvent);
+        mainDragArea.RegisterCallback<MouseMoveEvent>(OnMouseMoveEvent);
 
         RestView(frameUnitWidth);
     }
@@ -58,6 +69,32 @@ public class AnimationTrackItem : TrackItemBase
             animationOverLine.transform.position = overLinePos;
         }
 
+    }
+
+
+    private void OnMouseDownEvent(MouseDownEvent evt)
+    {
+        root.style.backgroundColor = selectColor;
+        mouseDrag = true;
+    }
+
+    private void OnMouseUpEvent(MouseUpEvent evt)
+    {
+        mouseDrag = false;
+    }
+
+    private void OnMouseOutEvent(MouseOutEvent evt)
+    {
+        root.style.backgroundColor = normalColor;
+        mouseDrag = false;
+    }
+
+    private void OnMouseMoveEvent(MouseMoveEvent evt)
+    {
+        if (mouseDrag)
+        {
+            Debug.Log(evt.mousePosition.x);
+        }
     }
 
 

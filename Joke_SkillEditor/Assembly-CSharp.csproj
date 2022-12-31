@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\Config\ProfessionType.cs" />
     <Compile Include="Assets\Scripts\Player\Player_Controller.cs" />
     <Compile Include="Assets\Scripts\Config\ProjectConfig.cs" />
+    <Compile Include="Assets\Scripts\Config\Skill\SkillConfig.cs" />
     <Compile Include="Assets\JKFrame\ExtensionModule\ColorSelector\Script\UI_ColorSelectorWindow.cs" />
     <Compile Include="Assets\Scripts\Config\ConfigTool.cs" />
     <Compile Include="Assets\Scripts\UI\UI_FacadeMenus_Tab.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Assets\Scripts\Config\ClothConfig.cs" />
     <Compile Include="Assets\Scripts\Serialization\Serialization_Dic.cs" />
     <Compile Include="Assets\Scripts\Serialization\Serialization_Color.cs" />
-    <Compile Include="Assets\Scripts\Config\Skill\SkillConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Res\ModularRPGHeroesPBR\Shader\PBRMaskTint.shader" />

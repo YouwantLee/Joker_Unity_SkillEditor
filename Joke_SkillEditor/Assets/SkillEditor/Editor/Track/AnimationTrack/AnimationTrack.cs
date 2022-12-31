@@ -79,7 +79,7 @@ public class AnimationTrack : SkillTrackBase
                     //不能放置
                     canPlace = false;
                     break;
-                }
+                }  
 
                 //找到右侧的最近 TrackItem
                 if (item.Key > selectFrameIndex)

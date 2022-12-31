@@ -35,6 +35,7 @@ public class SkillEditorWindows : EditorWindow
         if (skillConfig != null)
         {
             SkillConfigObjectField.value = skillConfig;
+            CurrentFrameCount = skillConfig.FrameCount;
         }
         else
         {
@@ -155,11 +156,15 @@ public class SkillEditorWindows : EditorWindow
 
         //刷新轨道
         ResetTrack();
-        if (skillConfig == null) return;
+
+        CurrentSelectFrameIndex = 0;
+        if (skillConfig == null)
+        {
+            CurrentFrameCount = 100;
+            return;
+        }
 
         CurrentFrameCount = skillConfig.FrameCount;
-        CurrentSelectFrameIndex = 0;
-
     }
 
     #endregion Config
@@ -179,13 +184,14 @@ public class SkillEditorWindows : EditorWindow
         get => currentSelectFrameIndex;
         set
         {
-            if (currentSelectFrameIndex == value) return;
+            //if (currentSelectFrameIndex == value) return;
 
             //如果超出范围，更新最大帧
             if (value > CurrentFrameCount) CurrentFrameCount = value;
+            CurrentFrameTextField.value = currentSelectFrameIndex;
 
             currentSelectFrameIndex = Mathf.Clamp(value, 0, CurrentFrameCount);
-            CurrentFrameTextField.value = currentSelectFrameIndex;
+
             UpdateTimerShaftView();
         }
     }
@@ -196,7 +202,7 @@ public class SkillEditorWindows : EditorWindow
         get => currentFrameCount;
         set
         {
-            if (currentFrameCount == value) return;
+            //if (currentFrameCount == value) return;
 
             currentFrameCount = value;
             FrameCountTextField.value = currentFrameCount;

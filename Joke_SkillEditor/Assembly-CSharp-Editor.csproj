@@ -56,12 +56,12 @@
     <Analyzer Include="D:\01_Software\002_VS\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\SkillTrackBase.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrack.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackItem.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrack.cs" />
+    <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\TrackItemBase.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\SkillTrackBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SkillEditor\Editor\Track\AnimationTrack\AnimationTrackItem.uxml" />
