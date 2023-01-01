@@ -4,19 +4,23 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
+using System;
 
 [CustomEditor(typeof(SkillEditorWindows))]
 public class SkillEditorInspector : Editor
 {
     public static SkillEditorInspector Instance;
     private static TrackItemBase currentTrackItem;
+    private static SkillTrackBase currentTrack;
 
     private VisualElement root;
 
 
-    public static void SetTrackItem(TrackItemBase trackItem)
+    public static void SetTrackItem(TrackItemBase trackItem, SkillTrackBase track)
     {
         currentTrackItem = trackItem;
+        currentTrack = track;
+
         if (Instance != null)
         {
             Instance.Show();  //避免已经打开Inspector，导致的面板刷新不及时
@@ -27,7 +31,7 @@ public class SkillEditorInspector : Editor
     {
         Instance = this;
         root = new VisualElement();
-        root.Add(new Label("AAAA"));
+        //root.Add(new Label("AAAA"));
 
         Show();
         return root;
@@ -58,41 +62,100 @@ public class SkillEditorInspector : Editor
         }
     }
 
+    #region 动画轨道
+    private Label clipFrameLabel;
+    private Label isLoopLable;
+    private int trackFrameIndex; //轨道对应的帧索引
+    private IntegerField durationField;
+    private FloatField transitionTimeField;
 
     private void DrawAnimationTrackItem(AnimationTrackItem animationTrackItem)
     {
+        trackFrameIndex = animationTrackItem.FrameIndex;
+
         //动画资源
         ObjectField animationClipAssetField = new ObjectField("动画资源");
         animationClipAssetField.objectType = typeof(AnimationClip);
         animationClipAssetField.value = animationTrackItem.AnimationEvent.AnimationClip;
+        animationClipAssetField.RegisterValueChangedCallback(AnimationClipValueChangedCallback);
         root.Add(animationClipAssetField);
 
         //轨道长度
-        IntegerField duration = new IntegerField("轨道长度");
-        duration.value = animationTrackItem.AnimationEvent.DurationFrame;
-        root.Add(duration);
+        durationField = new IntegerField("轨道长度");
+        durationField.value = animationTrackItem.AnimationEvent.DurationFrame;
+        durationField.RegisterValueChangedCallback(DurtionFieldValueChangedCallback);
+        root.Add(durationField);
 
         //过渡时间
-        FloatField transitionTime = new FloatField("过渡时间");
-        transitionTime.value = animationTrackItem.AnimationEvent.TransitionTime;
-        root.Add(transitionTime);
+        transitionTimeField = new FloatField("过渡时间");
+        transitionTimeField.value = animationTrackItem.AnimationEvent.TransitionTime;
+        transitionTimeField.RegisterValueChangedCallback(TransitionTimeFieldValueChangedCallback);
+        root.Add(transitionTimeField);
 
         //动画相关的信息
         int clipFrameCount = (int)(animationTrackItem.AnimationEvent.AnimationClip.length * animationTrackItem.AnimationEvent.AnimationClip.frameRate);
-        Label clipFrame = new Label("动画资源长度：" + clipFrameCount);
-        root.Add(clipFrame);
+        clipFrameLabel = new Label("动画资源长度：" + clipFrameCount);
+        root.Add(clipFrameLabel);
 
-        Label isLoopLable = new Label("循环动画：" + animationTrackItem.AnimationEvent.AnimationClip.isLooping);
+        isLoopLable = new Label("循环动画：" + animationTrackItem.AnimationEvent.AnimationClip.isLooping);
         root.Add(isLoopLable);
 
         //删除
-        Button deleteButton = new Button();
+        Button deleteButton = new Button(DeleteButtonClick);
         deleteButton.text = "删除";
         deleteButton.style.backgroundColor = new Color(1, 0, 0, 0.5f);
         root.Add(deleteButton);
-
-
-
     }
+
+    private void AnimationClipValueChangedCallback(ChangeEvent<UnityEngine.Object> evt)
+    {
+        if (evt.previousValue == evt.newValue) return;
+        AnimationClip clip = evt.newValue as AnimationClip;
+
+        //修改自身显示效果
+        clipFrameLabel.text = "动画资源长度：" + ((int)(clip.length * clip.frameRate));
+        isLoopLable.text = "循环动画：" + clip.isLooping;
+
+        //保存到配置
+        SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackFrameIndex].AnimationClip = clip;
+        SkillEditorWindows.Instance.SaveConfig();
+        currentTrack.ResetView();
+    }
+
+    private void DurtionFieldValueChangedCallback(ChangeEvent<int> evt)
+    {
+        if (evt.previousValue == evt.newValue) return;
+        int value = evt.newValue;
+
+        //安全校验
+        if ((currentTrack as AnimationTrack).CheckFrameIndexOnDrag(trackFrameIndex + value, trackFrameIndex))
+        {
+            //修改数据，刷新视图
+            SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackFrameIndex].DurationFrame = value;
+            SkillEditorWindows.Instance.SaveConfig();
+            currentTrack.ResetView();
+        }
+        else
+        {
+            durationField.value = evt.previousValue;
+        }
+    }
+
+    private void TransitionTimeFieldValueChangedCallback(ChangeEvent<float> evt)
+    {
+        if (evt.previousValue == evt.newValue) return;
+        SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackFrameIndex].TransitionTime = evt.newValue;
+        SkillEditorWindows.Instance.SaveConfig();
+        currentTrack.ResetView();
+    }
+
+    private void DeleteButtonClick()
+    {
+        currentTrack.DeleteTrackItem(trackFrameIndex); //此函数提供数据保存和刷新视图的逻辑
+        Selection.activeObject = null;
+    }
+
+    #endregion
+
 
 }

@@ -10,6 +10,8 @@ public class AnimationTrackItem : TrackItemBase
     private const string trackItemAssetPath = "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackItem.uxml";
     private AnimationTrack animationTrack;
     private int frameIndex;
+    public int FrameIndex { get => frameIndex; }
+
     private float frameUnitWidth;
     private SkillAnimationEvent animationEvent;
     public SkillAnimationEvent AnimationEvent { get => animationEvent; }
@@ -84,7 +86,7 @@ public class AnimationTrackItem : TrackItemBase
         startDragFrameIndex = frameIndex;
         mouseDrag = true;
 
-        SkillEditorWindows.Instance.ShowTrackItemOnInspector(this);
+        SkillEditorWindows.Instance.ShowTrackItemOnInspector(this, animationTrack);
     }
 
     private void OnMouseUpEvent(MouseUpEvent evt)

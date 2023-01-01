@@ -479,9 +479,9 @@ public class SkillEditorWindows : EditorWindow
     }
 
 
-    public void ShowTrackItemOnInspector(TrackItemBase trackItem)
+    public void ShowTrackItemOnInspector(TrackItemBase trackItem, SkillTrackBase track)
     {
-        SkillEditorInspector.SetTrackItem(trackItem);
+        SkillEditorInspector.SetTrackItem(trackItem, track);
         Selection.activeObject = this;
     }
     #endregion

@@ -129,12 +129,16 @@ public class AnimationTrack : SkillTrackBase
 
     #endregion
 
-    public bool CheckFrameIndexOnDrag(int targetindex)
+    public bool CheckFrameIndexOnDrag(int targetindex, int selfIndex = -1)
     {
         foreach (var item in animationData.FrameDataDic)
         {
+            //拖拽时，规避自身
+            if (item.Key == selfIndex) continue;
+
             //不允许 targetindex 在某个 TrackItem 中间
-            if (targetindex > item.Key && targetindex < item.Key + item.Value.DurationFrame)
+            //if (targetindex > item.Key || targetindex < item.Key + item.Value.DurationFrame)
+            if (targetindex > item.Key)
             {
                 return false;
             }
@@ -154,5 +158,13 @@ public class AnimationTrack : SkillTrackBase
             SkillEditorWindows.Instance.SaveConfig();
         }
     }
+
+    public override void DeleteTrackItem(int frameIndex)
+    {
+        animationData.FrameDataDic.Remove(frameIndex);
+        SkillEditorWindows.Instance.SaveConfig();
+        ResetView();
+    }
+
 
 }

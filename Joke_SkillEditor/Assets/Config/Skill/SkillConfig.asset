@@ -16,10 +16,8 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 177b677e6dbb073488cac51c51523b4e, type: 2}
-    - {fileID: 7400000, guid: 83fc6e6a95cdaf542a6855389e2b3474, type: 2}
-    - {fileID: 7400000, guid: 3e936a6e9eb9a0c4b9e81b0b91bc78b9, type: 2}
     - {fileID: 7400000, guid: f98e337e7f152ec42927a4e1e1de2711, type: 2}
+    - {fileID: 7400000, guid: 3e936a6e9eb9a0c4b9e81b0b91bc78b9, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -41,13 +39,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 40
+      Data: 0
     - Name: $v
       Entry: 7
       Data: 3|SkillAnimationEvent, Assembly-CSharp
@@ -59,7 +57,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: DurationFrame
       Entry: 3
-      Data: 20
+      Data: 50
     - Name: 
       Entry: 8
       Data: 
@@ -71,7 +69,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 0
+      Data: 60
     - Name: $v
       Entry: 7
       Data: 4|SkillAnimationEvent, Assembly-CSharp
@@ -95,37 +93,13 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 60
+      Data: 100
     - Name: $v
       Entry: 7
       Data: 5|SkillAnimationEvent, Assembly-CSharp
     - Name: AnimationClip
       Entry: 10
-      Data: 2
-    - Name: TransitionTime
-      Entry: 4
-      Data: 0.25
-    - Name: DurationFrame
-      Entry: 3
-      Data: 40
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 100
-    - Name: $v
-      Entry: 7
-      Data: 6|SkillAnimationEvent, Assembly-CSharp
-    - Name: AnimationClip
-      Entry: 10
-      Data: 3
+      Data: 0
     - Name: TransitionTime
       Entry: 4
       Data: 0.25
