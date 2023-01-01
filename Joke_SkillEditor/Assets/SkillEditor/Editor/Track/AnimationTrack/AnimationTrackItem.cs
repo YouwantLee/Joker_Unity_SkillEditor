@@ -115,11 +115,11 @@ public class AnimationTrackItem : TrackItemBase
 
             if (offsetFrame < 0)
             {
-                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex);
+                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex, startDragFrameIndex, true);
             }
             else if (offsetFrame > 0)
             {
-                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex + animationEvent.DurationFrame);
+                checkDrag = animationTrack.CheckFrameIndexOnDrag(targetFrameIndex + animationEvent.DurationFrame, startDragFrameIndex, false);
             }
             else return;
 
@@ -129,14 +129,22 @@ public class AnimationTrackItem : TrackItemBase
                 frameIndex = targetFrameIndex;
 
                 //如果超过右侧边界，拓展边界
-                if (frameIndex + animationEvent.DurationFrame > SkillEditorWindows.Instance.SkillConfig.FrameCount)
-                {
-                    SkillEditorWindows.Instance.CurrentFrameCount = frameIndex + animationEvent.DurationFrame;
-                }
+                CheckFrameCount();
 
                 //刷新视图
                 ResetView(frameUnitWidth);
             }
+        }
+    }
+
+    /// <summary>
+    /// 如果超过右侧边界，拓展边界
+    /// </summary>
+    public void CheckFrameCount()
+    {
+        if (frameIndex + animationEvent.DurationFrame > SkillEditorWindows.Instance.SkillConfig.FrameCount)
+        {
+            SkillEditorWindows.Instance.CurrentFrameCount = frameIndex + animationEvent.DurationFrame;
         }
     }
 
@@ -145,6 +153,7 @@ public class AnimationTrackItem : TrackItemBase
         if (startDragFrameIndex != frameIndex)
         {
             animationTrack.SetFrameIndex(startDragFrameIndex, frameIndex);
+            SkillEditorInspector.Instance.SetTrackItemFrameIndex(frameIndex);
         }
     }
 

@@ -129,16 +129,20 @@ public class AnimationTrack : SkillTrackBase
 
     #endregion
 
-    public bool CheckFrameIndexOnDrag(int targetindex, int selfIndex = -1)
+    public bool CheckFrameIndexOnDrag(int targetindex, int selfIndex, bool isLeft)
     {
         foreach (var item in animationData.FrameDataDic)
         {
             //拖拽时，规避自身
             if (item.Key == selfIndex) continue;
 
-            //不允许 targetindex 在某个 TrackItem 中间
-            //if (targetindex > item.Key || targetindex < item.Key + item.Value.DurationFrame)
-            if (targetindex > item.Key)
+            //向左移动&&原先在右边&&目标没有重叠
+            if (isLeft && selfIndex > item.Key && targetindex < item.Key + item.Value.DurationFrame)
+            {
+                return false;
+            }
+            //向右移动&&原先在左边&&目标没有重叠
+            else if (!isLeft && selfIndex < item.Key && targetindex > item.Key)
             {
                 return false;
             }
