@@ -18,14 +18,30 @@ public class SkillEditorInspector : Editor
 
     public static void SetTrackItem(TrackItemBase trackItem, SkillTrackBase track)
     {
+        if (currentTrackItem != null)
+        {
+            currentTrackItem.OnUnSelect();
+        }
+
         currentTrackItem = trackItem;
+        currentTrackItem.OnSelect();
         currentTrack = track;
 
-        if (Instance != null)
+        //避免已经打开Inspector，导致的面板刷新不及时
+        if (Instance != null) Instance.Show();
+    }
+
+    private void OnDestroy()
+    {
+        //说明窗口卸载
+        if (currentTrackItem != null)
         {
-            Instance.Show();  //避免已经打开Inspector，导致的面板刷新不及时
+            currentTrackItem.OnUnSelect();
+            currentTrackItem = null;
+            currentTrack = null;
         }
     }
+
 
     public override VisualElement CreateInspectorGUI()
     {
