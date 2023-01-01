@@ -40,8 +40,10 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
         ResetView(frameUnitWidth);
     }
 
-    public void ResetView(float frameUnitWidth)
+    public override void ResetView(float frameUnitWidth)
     {
+        base.ResetView(frameUnitWidth);
+
         this.frameUnitWidth = frameUnitWidth;
         root.text = animationEvent.AnimationClip.name;
 
@@ -70,8 +72,6 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
 
 
     #region   Û±ÍΩªª•
-
-
     private bool mouseDrag = false;
     private float startDragPosX;
     private int startDragFrameIndex;
@@ -153,5 +153,10 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
     }
 
     #endregion
+
+    public override void OnConfigChanged()
+    {
+        animationEvent = track.AnimationData.FrameDataDic[frameIndex];
+    }
 
 }

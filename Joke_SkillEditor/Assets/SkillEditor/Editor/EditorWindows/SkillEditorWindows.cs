@@ -300,6 +300,8 @@ public class SkillEditorWindows : EditorWindow
 
         UpdateTimerShaftView();
         UpdateContentSize();
+
+        //TrackItem 的ResetView
     }
 
 
@@ -429,6 +431,12 @@ public class SkillEditorWindows : EditorWindow
         {
             EditorUtility.SetDirty(skillConfig);
             AssetDatabase.SaveAssetIfDirty(skillConfig);
+
+            //重新引用一下数据
+            for (int i = 0; i < trackList.Count; i++)
+            {
+                trackList[i].OnConfigChanged();
+            }
         }
     }
 

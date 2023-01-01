@@ -140,7 +140,7 @@ public class SkillEditorInspector : Editor
         //保存到配置
         SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackItemFrameIndex].AnimationClip = clip;
         SkillEditorWindows.Instance.SaveConfig();
-        currentTrack.ResetView();
+        currentTrackItem.ResetView();
     }
 
     private void DurtionFieldValueChangedCallback(ChangeEvent<int> evt)
@@ -155,7 +155,7 @@ public class SkillEditorInspector : Editor
             SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackItemFrameIndex].DurationFrame = value;
             (currentTrackItem as AnimationTrackItem).CheckFrameCount();
             SkillEditorWindows.Instance.SaveConfig();//注意要最后保存，不然新旧数据会对不上
-            currentTrack.ResetView();
+            currentTrackItem.ResetView();
         }
         else
         {

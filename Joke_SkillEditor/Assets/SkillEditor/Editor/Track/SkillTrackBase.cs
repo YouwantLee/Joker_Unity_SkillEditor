@@ -49,4 +49,9 @@ public abstract class SkillTrackBase
 
     }
 
+    public virtual void OnConfigChanged()
+    {
+
+    }
+
 }

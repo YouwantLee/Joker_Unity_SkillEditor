@@ -11,7 +11,7 @@ public class AnimationTrack : SkillTrackBase
     public override string TrackAssetPath => "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackContent.uxml";
 
     private Dictionary<int, AnimationTrackItem> trackItemDic = new Dictionary<int, AnimationTrackItem>();
-    private SkillAnimationData animationData { get => SkillEditorWindows.Instance.SkillConfig.SkillAnimationData; }
+    public SkillAnimationData AnimationData { get => SkillEditorWindows.Instance.SkillConfig.SkillAnimationData; }
 
     public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
     {
@@ -34,7 +34,7 @@ public class AnimationTrack : SkillTrackBase
         trackItemDic.Clear();
         if (SkillEditorWindows.Instance.SkillConfig == null) return;
 
-        foreach (var item in animationData.FrameDataDic)
+        foreach (var item in AnimationData.FrameDataDic)
         {
             AnimationTrackItem trackItem = new AnimationTrackItem();
             trackItem.Init(this, track, item.Key, frameWidth, item.Value);
@@ -72,7 +72,7 @@ public class AnimationTrack : SkillTrackBase
             int nextTrackItem = -1;
             int currentOffset = int.MaxValue;
 
-            foreach (var item in animationData.FrameDataDic)
+            foreach (var item in AnimationData.FrameDataDic)
             {
                 //不允许选中帧在 TrackItem 中间（动画事件的起点到他的终点之间）
                 if (selectFrameIndex > item.Key && selectFrameIndex < item.Key + item.Value.DurationFrame)
@@ -118,7 +118,7 @@ public class AnimationTrack : SkillTrackBase
                 };
 
                 //保存新增的动画数据
-                animationData.FrameDataDic.Add(selectFrameIndex, animationEvent);
+                AnimationData.FrameDataDic.Add(selectFrameIndex, animationEvent);
                 SkillEditorWindows.Instance.SaveConfig();
 
                 //同步修改编辑器视图
@@ -131,7 +131,7 @@ public class AnimationTrack : SkillTrackBase
 
     public bool CheckFrameIndexOnDrag(int targetindex, int selfIndex, bool isLeft)
     {
-        foreach (var item in animationData.FrameDataDic)
+        foreach (var item in AnimationData.FrameDataDic)
         {
             //拖拽时，规避自身
             if (item.Key == selfIndex) continue;
@@ -156,19 +156,31 @@ public class AnimationTrack : SkillTrackBase
     /// </summary>
     public void SetFrameIndex(int oldIndex, int newIndex)
     {
-        if (animationData.FrameDataDic.Remove(oldIndex, out SkillAnimationEvent animationEvent))
+        if (AnimationData.FrameDataDic.Remove(oldIndex, out SkillAnimationEvent animationEvent))
         {
-            animationData.FrameDataDic.Add(newIndex, animationEvent);
+            AnimationData.FrameDataDic.Add(newIndex, animationEvent);
             SkillEditorWindows.Instance.SaveConfig();
         }
     }
 
     public override void DeleteTrackItem(int frameIndex)
     {
-        animationData.FrameDataDic.Remove(frameIndex);
+        //移除数据
+        AnimationData.FrameDataDic.Remove(frameIndex);
+        if (trackItemDic.Remove(frameIndex, out AnimationTrackItem item))
+        {
+            //移除视图
+            track.Remove(item.root);
+        }
         SkillEditorWindows.Instance.SaveConfig();
-        ResetView();
     }
 
+    public override void OnConfigChanged()
+    {
+        foreach (var item in trackItemDic.Values)
+        {
+            item.OnConfigChanged();
+        }
+    }
 
 }
