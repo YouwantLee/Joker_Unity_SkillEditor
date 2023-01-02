@@ -63,6 +63,7 @@ public class SkillEditorWindows : EditorWindow
     private ObjectField PreviewCharacterPrefabObjectField;
     private ObjectField SkillConfigObjectField;
     private GameObject currentPreviewCharacterObj;
+    public GameObject PreviewCharacterObj { get => currentPreviewCharacterObj; }
 
     private void InitTopMenu()
     {
@@ -196,13 +197,14 @@ public class SkillEditorWindows : EditorWindow
             UpdateTimerShaftView();
 
             //驱动技能表现
-            //驱动动画表现
             if (skillConfig != null && currentPreviewCharacterObj != null)
             {
                 //驱动动画表现
-
+                for (int i = 0; i < trackList.Count; i++)
+                {
+                    trackList[i].TickView(currentSelectFrameIndex);
+                }
             }
-
         }
     }
 

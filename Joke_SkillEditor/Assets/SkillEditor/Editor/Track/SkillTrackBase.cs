@@ -44,14 +44,10 @@ public abstract class SkillTrackBase
         this.frameWidth = frameWidth;
     }
 
-    public virtual void DeleteTrackItem(int frameIndex)
-    {
+    public virtual void DeleteTrackItem(int frameIndex) { }
 
-    }
+    public virtual void OnConfigChanged() { }
 
-    public virtual void OnConfigChanged()
-    {
-
-    }
+    public virtual void TickView(int frameIndex) { }
 
 }

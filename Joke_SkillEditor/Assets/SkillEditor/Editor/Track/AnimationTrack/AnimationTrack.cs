@@ -190,4 +190,45 @@ public class AnimationTrack : SkillTrackBase
         }
     }
 
+    public override void TickView(int frameIndex)
+    {
+        base.TickView(frameIndex);
+
+        GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
+
+        //根据帧找到目前是哪个动画
+        Dictionary<int, SkillAnimationEvent> frameDateDic = AnimationData.FrameDataDic;
+
+        //找到距离这一帧左边最近的一个动画，也就是当前要播放的动画
+        int currentOffset = int.MaxValue;  //最近的索引距离当前选中帧的差距
+        int animtionEventIndex = -1;
+        foreach (var item in frameDateDic)
+        {
+            int tempOffset = frameIndex - item.Key;
+            if (tempOffset > 0 && tempOffset < currentOffset)
+            {
+                currentOffset = tempOffset;
+                animtionEventIndex = item.Key;
+            }
+        }
+
+        if (animtionEventIndex != -1)
+        {
+            SkillAnimationEvent animationEvent = frameDateDic[animtionEventIndex];
+            //动画资源总帧数
+            float clipFrameCount = animationEvent.AnimationClip.length * animationEvent.AnimationClip.frameRate;
+            //计算当前的播放进度
+            float progress = currentOffset / clipFrameCount;
+            //循环动画的处理
+            if (progress > 1 && animationEvent.AnimationClip.isLooping)
+            {
+                progress -= (int)progress;//只保留小数点部分
+            }
+
+            animationEvent.AnimationClip.SampleAnimation(previewGameObject, progress * animationEvent.AnimationClip.length);
+        }
+
+    }
+
+
 }
