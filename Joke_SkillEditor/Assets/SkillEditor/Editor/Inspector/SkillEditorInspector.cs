@@ -86,6 +86,7 @@ public class SkillEditorInspector : Editor
 
     #region 动画轨道
     private Label clipFrameLabel;
+    private Toggle rootMotionToggle;
     private Label isLoopLable;
     private IntegerField durationField;
     private FloatField transitionTimeField;
@@ -100,6 +101,12 @@ public class SkillEditorInspector : Editor
         animationClipAssetField.value = animationTrackItem.AnimationEvent.AnimationClip;
         animationClipAssetField.RegisterValueChangedCallback(AnimationClipValueChangedCallback);
         root.Add(animationClipAssetField);
+
+        //根运动
+        rootMotionToggle = new Toggle("应用根运动");
+        rootMotionToggle.value = animationTrackItem.AnimationEvent.ApplyRootMotion;
+        rootMotionToggle.RegisterValueChangedCallback(rootMotionToggleValueChanged);
+        root.Add(rootMotionToggle);
 
         //轨道长度
         durationField = new IntegerField("轨道长度");
@@ -130,7 +137,6 @@ public class SkillEditorInspector : Editor
 
     private void AnimationClipValueChangedCallback(ChangeEvent<UnityEngine.Object> evt)
     {
-        if (evt.previousValue == evt.newValue) return;
         AnimationClip clip = evt.newValue as AnimationClip;
 
         //修改自身显示效果
@@ -138,21 +144,26 @@ public class SkillEditorInspector : Editor
         isLoopLable.text = "循环动画：" + clip.isLooping;
 
         //保存到配置
-        SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackItemFrameIndex].AnimationClip = clip;
+        (currentTrackItem as AnimationTrackItem).AnimationEvent.AnimationClip = clip;
         SkillEditorWindows.Instance.SaveConfig();
         currentTrackItem.ResetView();
     }
 
+    private void rootMotionToggleValueChanged(ChangeEvent<bool> evt)
+    {
+        (currentTrackItem as AnimationTrackItem).AnimationEvent.ApplyRootMotion = evt.newValue;
+        SkillEditorWindows.Instance.SaveConfig();
+    }
+
     private void DurtionFieldValueChangedCallback(ChangeEvent<int> evt)
     {
-        if (evt.previousValue == evt.newValue) return;
         int value = evt.newValue;
 
         //安全校验
         if ((currentTrack as AnimationTrack).CheckFrameIndexOnDrag(trackItemFrameIndex + value, trackItemFrameIndex, false))
         {
             //修改数据，刷新视图
-            SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackItemFrameIndex].DurationFrame = value;
+            (currentTrackItem as AnimationTrackItem).AnimationEvent.DurationFrame = value;
             (currentTrackItem as AnimationTrackItem).CheckFrameCount();
             SkillEditorWindows.Instance.SaveConfig();//注意要最后保存，不然新旧数据会对不上
             currentTrackItem.ResetView();
@@ -165,8 +176,7 @@ public class SkillEditorInspector : Editor
 
     private void TransitionTimeFieldValueChangedCallback(ChangeEvent<float> evt)
     {
-        if (evt.previousValue == evt.newValue) return;
-        SkillEditorWindows.Instance.SkillConfig.SkillAnimationData.FrameDataDic[trackItemFrameIndex].TransitionTime = evt.newValue;
+        (currentTrackItem as AnimationTrackItem).AnimationEvent.TransitionTime = evt.newValue;
         SkillEditorWindows.Instance.SaveConfig();
         currentTrack.ResetView();
     }

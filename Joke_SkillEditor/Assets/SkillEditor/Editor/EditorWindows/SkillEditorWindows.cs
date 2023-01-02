@@ -196,15 +196,7 @@ public class SkillEditorWindows : EditorWindow
             CurrentFrameTextField.value = currentSelectFrameIndex;
             UpdateTimerShaftView();
 
-            //驱动技能表现
-            if (skillConfig != null && currentPreviewCharacterObj != null)
-            {
-                //驱动动画表现
-                for (int i = 0; i < trackList.Count; i++)
-                {
-                    trackList[i].TickView(currentSelectFrameIndex);
-                }
-            }
+            TickSkill();
         }
     }
 
@@ -320,14 +312,23 @@ public class SkillEditorWindows : EditorWindow
     {
         //让选中线位置卡在帧的位置上
         timeShaftIsMouseEnter = true;
-        CurrentSelectFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
+        IsPlaying = false;
+        int newValue = GetFrameIndexByMousePos(evt.localMousePosition.x);
+        if (CurrentSelectFrameIndex != newValue)
+        {
+            CurrentSelectFrameIndex = newValue;
+        }
 
     }
     private void TimeShaftMouseMove(MouseMoveEvent evt)
     {
         if (timeShaftIsMouseEnter)
         {
-            CurrentSelectFrameIndex = GetFrameIndexByMousePos(evt.localMousePosition.x);
+            int newValue = GetFrameIndexByMousePos(evt.localMousePosition.x);
+            if (CurrentSelectFrameIndex != newValue)
+            {
+                CurrentSelectFrameIndex = newValue;
+            }
         }
     }
 
@@ -423,11 +424,11 @@ public class SkillEditorWindows : EditorWindow
 
     private void CurrentFrameTextFieldValueChanged(ChangeEvent<int> evt)
     {
-        CurrentSelectFrameIndex = evt.newValue;
+        if (CurrentSelectFrameIndex != evt.newValue) CurrentSelectFrameIndex = evt.newValue;
     }
     private void FrameCountTextFieldValueChanged(ChangeEvent<int> evt)
     {
-        CurrentFrameCount = evt.newValue;
+        if (CurrentFrameCount != evt.newValue) CurrentFrameCount = evt.newValue;
     }
 
 
@@ -547,6 +548,18 @@ public class SkillEditorWindows : EditorWindow
         }
     }
 
+    private void TickSkill()
+    {
+        //驱动技能表现
+        if (skillConfig != null && currentPreviewCharacterObj != null)
+        {
+            //驱动动画表现
+            for (int i = 0; i < trackList.Count; i++)
+            {
+                trackList[i].TickView(currentSelectFrameIndex);
+            }
+        }
+    }
 
     #endregion
 

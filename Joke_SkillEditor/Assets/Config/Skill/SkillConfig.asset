@@ -16,10 +16,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 0582a4398b3f0b741abe745cd9888367, type: 3}
-    - {fileID: 7400000, guid: 4b7b0739b643c074ba3854184d0f7ced, type: 3}
-    - {fileID: 7400000, guid: 24287e03ab7b0764a952b272b0f27d35, type: 3}
-    - {fileID: 7400000, guid: c659c26181d2079419c9dd8d2382bfe5, type: 3}
+    - {fileID: 7400000, guid: bc0889572cfc06743a627b7e65d31fc3, type: 3}
+    - {fileID: 7400000, guid: 2d45f153d8fc9d8488863f43e3d61bad, type: 3}
+    - {fileID: 7400000, guid: 41a5baa548f81184889c895cae3a5505, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -41,13 +40,13 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 3
-      Data: 30
+      Data: 15
     - Name: $v
       Entry: 7
       Data: 3|SkillAnimationEvent, Assembly-CSharp
@@ -57,9 +56,12 @@ MonoBehaviour:
     - Name: TransitionTime
       Entry: 4
       Data: 0.25
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: false
     - Name: DurationFrame
       Entry: 3
-      Data: 20
+      Data: 15
     - Name: 
       Entry: 8
       Data: 
@@ -71,7 +73,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 15
+      Data: 30
     - Name: $v
       Entry: 7
       Data: 4|SkillAnimationEvent, Assembly-CSharp
@@ -81,9 +83,12 @@ MonoBehaviour:
     - Name: TransitionTime
       Entry: 4
       Data: 0.25
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: false
     - Name: DurationFrame
       Entry: 3
-      Data: 15
+      Data: 20
     - Name: 
       Entry: 8
       Data: 
@@ -105,33 +110,12 @@ MonoBehaviour:
     - Name: TransitionTime
       Entry: 4
       Data: 0.25
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: false
     - Name: DurationFrame
       Entry: 3
       Data: 15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 50
-    - Name: $v
-      Entry: 7
-      Data: 6|SkillAnimationEvent, Assembly-CSharp
-    - Name: AnimationClip
-      Entry: 10
-      Data: 3
-    - Name: TransitionTime
-      Entry: 4
-      Data: 0.25
-    - Name: DurationFrame
-      Entry: 3
-      Data: 30
     - Name: 
       Entry: 8
       Data: 
@@ -148,5 +132,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   SkillName: "\u6D4B\u8BD5"
-  FrameCount: 80
+  FrameCount: 108
   FrameRate: 30
