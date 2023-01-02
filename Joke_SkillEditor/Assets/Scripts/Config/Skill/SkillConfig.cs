@@ -11,6 +11,7 @@ public class SkillConfig : ConfigBase
 {
     [LabelText("技能名称")] public string SkillName;
     [LabelText("帧数上限")] public int FrameCount = 100;
+    [LabelText("帧率")] public int FrameRate = 30;
 
     [NonSerialized, OdinSerialize]
     public SkillAnimationData SkillAnimationData = new SkillAnimationData();

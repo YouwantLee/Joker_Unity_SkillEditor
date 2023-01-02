@@ -48,7 +48,6 @@ public class SkillEditorWindows : EditorWindow
     private void OnDestroy()
     {
         if (skillConfig != null) SaveConfig();
-
     }
 
 
@@ -190,15 +189,20 @@ public class SkillEditorWindows : EditorWindow
         get => currentSelectFrameIndex;
         set
         {
-            //if (currentSelectFrameIndex == value) return;
-
             //如果超出范围，更新最大帧
             if (value > CurrentFrameCount) CurrentFrameCount = value;
-            CurrentFrameTextField.value = currentSelectFrameIndex;
-
             currentSelectFrameIndex = Mathf.Clamp(value, 0, CurrentFrameCount);
-
+            CurrentFrameTextField.value = currentSelectFrameIndex;
             UpdateTimerShaftView();
+
+            //驱动技能表现
+            //驱动动画表现
+            if (skillConfig != null && currentPreviewCharacterObj != null)
+            {
+                //驱动动画表现
+
+            }
+
         }
     }
 
@@ -231,7 +235,7 @@ public class SkillEditorWindows : EditorWindow
     /// <summary>
     /// 当前帧在时间轴的像素坐标位置（鼠标位置+下方容器的移动位置）
     /// </summary>
-    private float currentSelectFramePos { get => CurrentSelectFrameIndex * skillEditorConfig.frameUnitWidth; }
+    private float currentSelectFramePos { get => CurrentSelectFrameIndex * skillEditorConfig.FrameUnitWidth; }
 
 
     private bool timeShaftIsMouseEnter = false;
@@ -263,14 +267,14 @@ public class SkillEditorWindows : EditorWindow
         Rect rect = timeShaft.contentRect; //时间轴的尺寸
 
         //起始索引
-        int index = Mathf.CeilToInt(contentOffsetPos / skillEditorConfig.frameUnitWidth);
+        int index = Mathf.CeilToInt(contentOffsetPos / skillEditorConfig.FrameUnitWidth);
         //计算绘制起点的偏移
         float startOffset = 0;
         //10-(98 % 10)
         //=10-8=2
-        if (index > 0) startOffset = skillEditorConfig.frameUnitWidth - (contentOffsetPos % skillEditorConfig.frameUnitWidth);
+        if (index > 0) startOffset = skillEditorConfig.FrameUnitWidth - (contentOffsetPos % skillEditorConfig.FrameUnitWidth);
 
-        int tickStep = SkillEditorConfig.MaxFrameWidthLV + 1 - (skillEditorConfig.frameUnitWidth / SkillEditorConfig.StandframeUnitWidth);
+        int tickStep = SkillEditorConfig.MaxFrameWidthLV + 1 - (skillEditorConfig.FrameUnitWidth / SkillEditorConfig.StandframeUnitWidth);
         //tickStep = 10+1-(100/10)=1
         //tickStep = 11-9=2
         //tickStep = 11-8=3
@@ -278,7 +282,7 @@ public class SkillEditorWindows : EditorWindow
 
         tickStep = Mathf.Clamp(tickStep / 2, 1, SkillEditorConfig.MaxFrameWidthLV);
 
-        for (float i = startOffset; i < rect.width; i += skillEditorConfig.frameUnitWidth)
+        for (float i = startOffset; i < rect.width; i += skillEditorConfig.FrameUnitWidth)
         {
             //绘制长线条、文本
             if (index % tickStep == 0)
@@ -300,7 +304,7 @@ public class SkillEditorWindows : EditorWindow
     private void TimeShaftWheel(WheelEvent evt)
     {
         int delta = (int)evt.delta.y;
-        skillEditorConfig.frameUnitWidth = Mathf.Clamp(skillEditorConfig.frameUnitWidth - delta,
+        skillEditorConfig.FrameUnitWidth = Mathf.Clamp(skillEditorConfig.FrameUnitWidth - delta,
             SkillEditorConfig.StandframeUnitWidth, SkillEditorConfig.MaxFrameWidthLV * SkillEditorConfig.StandframeUnitWidth);
 
         UpdateTimerShaftView();
@@ -348,7 +352,7 @@ public class SkillEditorWindows : EditorWindow
 
     public int GetFrameIndexByPos(float x)
     {
-        return Mathf.RoundToInt(x / skillEditorConfig.frameUnitWidth);
+        return Mathf.RoundToInt(x / skillEditorConfig.FrameUnitWidth);
     }
 
 
@@ -400,15 +404,18 @@ public class SkillEditorWindows : EditorWindow
 
     private void PreviouFrameButtonClicked()
     {
+        IsPlaying = false;
         CurrentSelectFrameIndex -= 1;
     }
 
     private void PlayButtonClicked()
     {
+        IsPlaying = !IsPlaying;
     }
 
     private void NextFrameButtonClicked()
     {
+        IsPlaying = false;
         CurrentSelectFrameIndex += 1;
     }
 
@@ -423,7 +430,6 @@ public class SkillEditorWindows : EditorWindow
 
 
     #endregion
-
 
     #region config
     private SkillConfig skillConfig;
@@ -446,7 +452,6 @@ public class SkillEditorWindows : EditorWindow
     }
 
     #endregion
-
 
     #region  Track
     private VisualElement trackMenuParent;
@@ -471,7 +476,7 @@ public class SkillEditorWindows : EditorWindow
     {
         for (int i = 0; i < trackList.Count; i++)
         {
-            trackList[i].ResetView(skillEditorConfig.frameUnitWidth);
+            trackList[i].ResetView(skillEditorConfig.FrameUnitWidth);
         }
     }
 
@@ -481,13 +486,13 @@ public class SkillEditorWindows : EditorWindow
     /// </summary>
     private void UpdateContentSize()
     {
-        ContentListView.style.width = skillEditorConfig.frameUnitWidth * CurrentFrameCount;
+        ContentListView.style.width = skillEditorConfig.FrameUnitWidth * CurrentFrameCount;
     }
 
     private void InitAnimationTrack()
     {
         AnimationTrack animationTrack = new AnimationTrack();
-        animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.frameUnitWidth);
+        animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
         trackList.Add(animationTrack);
     }
 
@@ -499,7 +504,49 @@ public class SkillEditorWindows : EditorWindow
     }
     #endregion
 
+    #region Preview
+    private bool isPlaying;
+    public bool IsPlaying
+    {
+        get => isPlaying;
+        set
+        {
+            isPlaying = value;
+            if (isPlaying)
+            {
+                startTime = DateTime.Now;
+                startFrameIndex = currentSelectFrameIndex;
+            }
+        }
+    }
 
+    private DateTime startTime;
+    private int startFrameIndex;
+
+
+    private void Update()
+    {
+        if (IsPlaying)
+        {
+            //得到时间差
+            float time = (float)DateTime.Now.Subtract(startTime).TotalSeconds;
+
+            //确定时间轴的帧率
+            float frameRate = skillConfig != null ? skillConfig.FrameRate : skillEditorConfig.DefaultFrameRate;
+
+            //根据时间差计算当前的选中帧
+            CurrentSelectFrameIndex = (int)((time * frameRate) + startFrameIndex);
+
+            //到达最后一帧自动暂停
+            if (CurrentSelectFrameIndex == CurrentFrameCount)
+            {
+                IsPlaying = false;
+            }
+        }
+    }
+
+
+    #endregion
 
 
 }
@@ -519,8 +566,11 @@ public class SkillEditorConfig
     /// <summary>
     /// 当前的帧单位刻度（受缩放而变化）
     /// </summary>
-    public int frameUnitWidth = 10;
+    public int FrameUnitWidth = 10;
 
-
+    /// <summary>
+    /// 默认帧率
+    /// </summary>
+    public float DefaultFrameRate = 10;
 
 }
