@@ -34,16 +34,20 @@ public class AnimationTrack : SkillTrackBase
         trackItemDic.Clear();
         if (SkillEditorWindows.Instance.SkillConfig == null) return;
 
+        //根据数据绘制 TrackItem
         foreach (var item in AnimationData.FrameDataDic)
         {
-            AnimationTrackItem trackItem = new AnimationTrackItem();
-            trackItem.Init(this, track, item.Key, frameWidth, item.Value);
-            trackItemDic.Add(item.Key, trackItem);
+            CreateItem(item.Key, item.Value);
         }
-
-        //根据数据绘制 TrackItem
-
     }
+
+    private void CreateItem(int frameIndex, SkillAnimationEvent skillAnimationEvent)
+    {
+        AnimationTrackItem trackItem = new AnimationTrackItem();
+        trackItem.Init(this, track, frameIndex, frameWidth, skillAnimationEvent);
+        trackItemDic.Add(frameIndex, trackItem);
+    }
+
 
     #region  拖拽资源
     private void OnDragUpdatedEvent(DragUpdatedEvent evt)
@@ -121,8 +125,8 @@ public class AnimationTrack : SkillTrackBase
                 AnimationData.FrameDataDic.Add(selectFrameIndex, animationEvent);
                 SkillEditorWindows.Instance.SaveConfig();
 
-                //同步修改编辑器视图
-                ResetView();
+                //绘制一个Item
+                CreateItem(selectFrameIndex, animationEvent);
             }
         }
     }
@@ -159,6 +163,9 @@ public class AnimationTrack : SkillTrackBase
         if (AnimationData.FrameDataDic.Remove(oldIndex, out SkillAnimationEvent animationEvent))
         {
             AnimationData.FrameDataDic.Add(newIndex, animationEvent);
+            trackItemDic.Remove(oldIndex, out AnimationTrackItem animationTrackItem);
+            trackItemDic.Add(newIndex, animationTrackItem);
+
             SkillEditorWindows.Instance.SaveConfig();
         }
     }

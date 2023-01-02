@@ -139,6 +139,7 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
     {
         if (frameIndex + animationEvent.DurationFrame > SkillEditorWindows.Instance.SkillConfig.FrameCount)
         {
+            //保存配置导致对象无效，重新引用
             SkillEditorWindows.Instance.CurrentFrameCount = frameIndex + animationEvent.DurationFrame;
         }
     }

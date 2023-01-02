@@ -45,6 +45,12 @@ public class SkillEditorWindows : EditorWindow
         CurrentSelectFrameIndex = 0;
     }
 
+    private void OnDestroy()
+    {
+        if (skillConfig != null) SaveConfig();
+
+    }
+
 
     #region TopMenu 
     private const string skillEditorScenePath = "Assets/SkillEditor/SkillEditorScene.unity";
@@ -211,7 +217,6 @@ public class SkillEditorWindows : EditorWindow
             if (skillConfig != null)
             {
                 skillConfig.FrameCount = currentFrameCount;
-                SaveConfig();
             }
 
             //Content 区域的尺寸变化
