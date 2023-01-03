@@ -168,7 +168,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: true
+      Data: false
     - Name: DurationFrame
       Entry: 3
       Data: 35

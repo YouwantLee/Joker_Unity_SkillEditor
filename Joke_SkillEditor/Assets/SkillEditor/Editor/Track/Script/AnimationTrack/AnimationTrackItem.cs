@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class AnimationTrackItem : TrackItemBase<AnimationTrack>
 {
-    private const string trackItemAssetPath = "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackItem.uxml";
+    private const string trackItemAssetPath = "Assets/SkillEditor/Editor/Track/Assets/AnimationTrack/AnimationTrackItem.uxml";
 
     private SkillAnimationEvent animationEvent;
     public SkillAnimationEvent AnimationEvent { get => animationEvent; }
@@ -15,7 +15,7 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
     private VisualElement mainDragArea;
     private VisualElement animationOverLine;
 
-    public void Init(AnimationTrack animationTrack, VisualElement parent, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
+    public void Init(AnimationTrack animationTrack, SkillTrackStyleBase parentTrackStyle, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
     {
         track = animationTrack;
         this.frameIndex = startFrameIndex;
@@ -25,7 +25,7 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
         root = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackItemAssetPath).Instantiate().Query<Label>();//不要容器，直接持有目标物体
         mainDragArea = root.Q<VisualElement>("Main");
         animationOverLine = root.Q<VisualElement>("OverLine");
-        parent.Add(root);
+        parentTrackStyle.AddItem(root);
 
         normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
         selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);

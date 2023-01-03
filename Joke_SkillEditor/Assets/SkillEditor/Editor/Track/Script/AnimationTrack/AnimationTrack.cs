@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 
 public class AnimationTrack : SkillTrackBase
 {
-    public override string MenuAssetPath => "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackMenu.uxml";
-    public override string TrackAssetPath => "Assets/SkillEditor/Editor/Track/AnimationTrack/AnimationTrackContent.uxml";
+    private SkillSingleLineTrackStyle trackStyle;
 
     private Dictionary<int, AnimationTrackItem> trackItemDic = new Dictionary<int, AnimationTrackItem>();
     public SkillAnimationData AnimationData { get => SkillEditorWindows.Instance.SkillConfig.SkillAnimationData; }
@@ -17,8 +16,10 @@ public class AnimationTrack : SkillTrackBase
     public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
     {
         base.Init(menuParent, trackParent, frameWidth);
-        track.RegisterCallback<DragUpdatedEvent>(OnDragUpdatedEvent);
-        track.RegisterCallback<DragExitedEvent>(OnDragExitedEvent);
+        trackStyle = new SkillSingleLineTrackStyle();
+        trackStyle.Init(menuParent, trackParent, "动画配置");
+        trackStyle.contentRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdatedEvent);
+        trackStyle.contentRoot.RegisterCallback<DragExitedEvent>(OnDragExitedEvent);
 
         ResetView();
     }
@@ -29,7 +30,7 @@ public class AnimationTrack : SkillTrackBase
         //销毁当前已有
         foreach (var item in trackItemDic)
         {
-            track.Remove(item.Value.root);
+            trackStyle.DeleteItem(item.Value.root);
         }
 
         trackItemDic.Clear();
@@ -45,7 +46,7 @@ public class AnimationTrack : SkillTrackBase
     private void CreateItem(int frameIndex, SkillAnimationEvent skillAnimationEvent)
     {
         AnimationTrackItem trackItem = new AnimationTrackItem();
-        trackItem.Init(this, track, frameIndex, frameWidth, skillAnimationEvent);
+        trackItem.Init(this, trackStyle, frameIndex, frameWidth, skillAnimationEvent);
         trackItemDic.Add(frameIndex, trackItem);
     }
 
@@ -178,7 +179,7 @@ public class AnimationTrack : SkillTrackBase
         if (trackItemDic.Remove(frameIndex, out AnimationTrackItem item))
         {
             //移除视图
-            track.Remove(item.root);
+            trackStyle.DeleteItem(item.root);
         }
         SkillEditorWindows.Instance.SaveConfig();
     }
@@ -219,7 +220,7 @@ public class AnimationTrack : SkillTrackBase
             int nextKeyFrame = i + 1 < keys.Length ? keys[i + 1] : SkillEditorWindows.Instance.SkillConfig.FrameCount;//最后一个动画
 
             //标记是最后一次采样
-            bool isBreak = false; 
+            bool isBreak = false;
             //下一帧大于当前选中帧（帧数累加完成，可以停止累加坐标的标志）
             if (nextKeyFrame > frameIndex)
             {
