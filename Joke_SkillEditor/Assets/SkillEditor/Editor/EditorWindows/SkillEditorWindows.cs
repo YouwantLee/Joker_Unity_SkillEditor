@@ -393,7 +393,7 @@ public class SkillEditorWindows : EditorWindow
 
     #endregion
 
-    #region Consle
+    #region Console
     private Button PreviouFrameButton;
     private Button PlayButton;
     private Button NextFrameButton;
