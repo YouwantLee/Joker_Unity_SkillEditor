@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Serialization\Serialization_Color.cs" />
     <Compile Include="Assets\Scripts\Player\Skill\Skill_Player.cs" />
     <Compile Include="Assets\Scripts\Player\TestSkill.cs" />
+    <Compile Include="Assets\Scripts\Player\State\Player_SkillState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Res\ModularRPGHeroesPBR\Shader\PBRMaskTint.shader" />

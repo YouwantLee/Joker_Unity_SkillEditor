@@ -13,7 +13,7 @@ public class TestSkill : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Skill_Player.PlaySkill(SkillConfig);
+            //Skill_Player.PlaySkill(SkillConfig);
         }
     }
 }

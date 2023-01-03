@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Skill_Player : MonoBehaviour
 {
-    [SerializeField] private Animation_Controller animation_Controller;
+    private Animation_Controller animation_Controller;
 
     private bool isPlaying = false;     //当前是否处于播放状态
     public bool IsPlaying { get => isPlaying; }
@@ -18,14 +19,25 @@ public class Skill_Player : MonoBehaviour
     private float playTotalTime;        //当前播放的总时间
     private int frameRate;              //当前技能的帧率
 
+    public void Init(Animation_Controller animation_Controller)
+    {
+        this.animation_Controller = animation_Controller;
+    }
+
+    private Action<Vector3, Quaternion> rootMotionAction;
+    private Action skillEndAction;
+
     /// <summary>
     /// 播放技能
     /// </summary>
     /// <param name="skillConfig"> 技能配置 </param>
-    public void PlaySkill(SkillConfig skillConfig)
+    public void PlaySkill(SkillConfig skillConfig, Action skillEndAction, Action<Vector3, Quaternion> rootMotionAction = null)
     {
         this.skillConfig = skillConfig;
-        currentFrameIndex = 0;
+        this.skillEndAction = skillEndAction;
+        this.rootMotionAction = rootMotionAction;
+
+        currentFrameIndex = -1;
         frameRate = skillConfig.FrameRate;
         playTotalTime = 0;
         isPlaying = true;
@@ -52,6 +64,9 @@ public class Skill_Player : MonoBehaviour
             {
                 isPlaying = false;
                 skillConfig = null;
+                if (rootMotionAction != null) animation_Controller.ClearRootMotionAction();
+                rootMotionAction = null;
+                skillEndAction?.Invoke();
             }
         }
     }
@@ -63,6 +78,17 @@ public class Skill_Player : MonoBehaviour
         if (animation_Controller != null && skillConfig.SkillAnimationData.FrameDataDic.TryGetValue(currentFrameIndex, out SkillAnimationEvent skillAnimationEvent))
         {
             animation_Controller.PlaySingleAniamtion(skillAnimationEvent.AnimationClip, 1, true, skillAnimationEvent.TransitionTime);
+
+            if (skillAnimationEvent.ApplyRootMotion)
+            {
+                animation_Controller.SetRootMotionAction(rootMotionAction);
+            }
+            else
+            {
+                animation_Controller.ClearRootMotionAction();
+
+            }
+
         }
 
     }

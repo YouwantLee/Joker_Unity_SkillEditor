@@ -21,6 +21,10 @@ MonoBehaviour:
     m_Address: WarriorConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7a2b3e8b8fb25fb47bacd466832821e7
+    m_Address: SkillConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bf38bea96cf6fe84ea26b28dec444a9f, type: 2}
   m_SchemaSet:

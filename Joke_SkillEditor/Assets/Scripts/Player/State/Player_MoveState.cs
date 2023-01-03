@@ -14,7 +14,7 @@ public class Player_MoveState : PlayerStateBase
     public override void Init(IStateMachineOwner owner, int stateType, StateMachine stateMachine)
     {
         base.Init(owner, stateType, stateMachine);
-        characterController = player.GetComponent<CharacterController>();
+        characterController = player.CharacterController;
         applyRootMotionForMove = player.CharacterConfig.ApplyRootMotionForMove;
         animation = player.Animation_Controller;
     }
@@ -33,17 +33,18 @@ public class Player_MoveState : PlayerStateBase
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        if (h==0&&v==0)
+        if (h == 0 && v == 0)
         {
             // 切换状态
             player.ChangeState(PlayerState.Idle);
-        }else
+        }
+        else
         {
             // 处理移动
             Vector3 input = new Vector3(h, 0, v);
-            if (Input.GetKey(KeyCode.LeftShift)) 
+            if (Input.GetKey(KeyCode.LeftShift))
                 runTransition = Mathf.Clamp(runTransition + Time.deltaTime * player.CharacterConfig.Walk2RunTransitionSpeed, 0, 1);
-            else 
+            else
                 runTransition = Mathf.Clamp(runTransition - Time.deltaTime * player.CharacterConfig.Walk2RunTransitionSpeed, 0, 1);
 
             animation.SetBlendWeight(1 - runTransition);

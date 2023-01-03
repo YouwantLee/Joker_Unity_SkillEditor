@@ -206,6 +206,7 @@ public class AnimationTrack : SkillTrackBase
         int[] keys = frameDataSortedDic.Keys.ToArray();
         Vector3 rootMotionTotalPos = Vector3.zero;
 
+        //从第0帧开始累加位移坐标
         for (int i = 0; i < keys.Length; i++)
         {
             int key = keys[i]; //当前动画的起始帧数
@@ -214,10 +215,12 @@ public class AnimationTrack : SkillTrackBase
             //只考虑根运动配置的动画
             if (animationEvent.ApplyRootMotion == false) continue;
 
+            //找到后一个动画的帧起始位置
             int nextKeyFrame = i + 1 < keys.Length ? keys[i + 1] : SkillEditorWindows.Instance.SkillConfig.FrameCount;//最后一个动画
 
-            bool isBreak = false; //标记是最后一次采样
-            //下一帧大于当前选中帧（用户往回点击了）
+            //标记是最后一次采样
+            bool isBreak = false; 
+            //下一帧大于当前选中帧（帧数累加完成，可以停止累加坐标的标志）
             if (nextKeyFrame > frameIndex)
             {
                 nextKeyFrame = frameIndex;
@@ -269,12 +272,11 @@ public class AnimationTrack : SkillTrackBase
 
                 if (lastProgress > 0)
                 {
-                    //采样一次动画的不完整进度（此处会修改角色位置）
+                    //采样一次动画的不完整进度
                     animationEvent.AnimationClip.SampleAnimation(previewGameObject, lastProgress * animationEvent.AnimationClip.length);
                     Vector3 samplePos = previewGameObject.transform.position;
                     rootMotionTotalPos += samplePos;
                 }
-
             }
 
             if (isBreak) break;
@@ -308,6 +310,7 @@ public class AnimationTrack : SkillTrackBase
                 progress -= (int)progress;//只保留小数点部分
             }
 
+            //（此处会修改角色位置）
             animator.applyRootMotion = animationEvent.ApplyRootMotion;
             animationEvent.AnimationClip.SampleAnimation(previewGameObject, progress * animationEvent.AnimationClip.length);
         }

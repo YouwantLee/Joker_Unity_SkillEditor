@@ -19,7 +19,8 @@ MonoBehaviour:
     - {fileID: 7400000, guid: bc0889572cfc06743a627b7e65d31fc3, type: 3}
     - {fileID: 7400000, guid: 2d45f153d8fc9d8488863f43e3d61bad, type: 3}
     - {fileID: 7400000, guid: 41a5baa548f81184889c895cae3a5505, type: 3}
-    - {fileID: 7400000, guid: a8bb1c2786796814cac136ae2bb36a2b, type: 3}
+    - {fileID: 7400000, guid: 94fb988de575b5e419dd7a3eb64dffe6, type: 3}
+    - {fileID: 7400000, guid: 370328736127ab54d8b445d6a51e5485, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -41,7 +42,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 7
       Data: 
@@ -74,7 +75,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 58
+      Data: 30
     - Name: $v
       Entry: 7
       Data: 4|SkillAnimationEvent, Assembly-CSharp
@@ -128,7 +129,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 30
+      Data: 50
     - Name: $v
       Entry: 7
       Data: 6|SkillAnimationEvent, Assembly-CSharp
@@ -143,7 +144,34 @@ MonoBehaviour:
       Data: false
     - Name: DurationFrame
       Entry: 3
-      Data: 28
+      Data: 22
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 72
+    - Name: $v
+      Entry: 7
+      Data: 7|SkillAnimationEvent, Assembly-CSharp
+    - Name: AnimationClip
+      Entry: 10
+      Data: 4
+    - Name: TransitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: false
+    - Name: DurationFrame
+      Entry: 3
+      Data: 35
     - Name: 
       Entry: 8
       Data: 
@@ -160,5 +188,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   SkillName: "\u6D4B\u8BD5"
-  FrameCount: 112
+  FrameCount: 110
   FrameRate: 30
