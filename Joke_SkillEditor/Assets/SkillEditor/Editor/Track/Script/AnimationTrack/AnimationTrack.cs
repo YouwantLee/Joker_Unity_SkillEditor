@@ -30,7 +30,7 @@ public class AnimationTrack : SkillTrackBase
         //销毁当前已有
         foreach (var item in trackItemDic)
         {
-            trackStyle.DeleteItem(item.Value.root);
+            trackStyle.DeleteItem(item.Value.itemStyle.root);
         }
 
         trackItemDic.Clear();
@@ -179,7 +179,7 @@ public class AnimationTrack : SkillTrackBase
         if (trackItemDic.Remove(frameIndex, out AnimationTrackItem item))
         {
             //移除视图
-            trackStyle.DeleteItem(item.root);
+            trackStyle.DeleteItem(item.itemStyle.root);
         }
         SkillEditorWindows.Instance.SaveConfig();
     }

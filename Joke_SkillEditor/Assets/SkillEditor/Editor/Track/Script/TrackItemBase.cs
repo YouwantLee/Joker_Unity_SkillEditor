@@ -27,8 +27,8 @@ public abstract class TrackItemBase<T> : TrackItemBase where T : SkillTrackBase
     protected T track;
     protected Color normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
     protected Color selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
-    public Label root { get; protected set; }
 
+    public SkillTrackItemStyleBase itemStyle { get; protected set; }
 
 
     protected int frameIndex;
@@ -41,11 +41,11 @@ public abstract class TrackItemBase<T> : TrackItemBase where T : SkillTrackBase
 
     public override void OnSelect()
     {
-        root.style.backgroundColor = selectColor;
+        itemStyle.SetBGColor(selectColor);
     }
 
     public override void OnUnSelect()
     {
-        root.style.backgroundColor = normalColor;
+        itemStyle.SetBGColor(normalColor);
     }
 }
