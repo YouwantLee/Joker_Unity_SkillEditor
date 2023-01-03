@@ -183,7 +183,7 @@ public class SkillEditorWindows : EditorWindow
             currentPreviewCharacterObj.transform.localEulerAngles = Vector3.zero;
             PreviewCharacterObjectField.value = currentPreviewCharacterObj;
         }
-    }  
+    }
 
 
     /// <summary>
@@ -508,15 +508,25 @@ public class SkillEditorWindows : EditorWindow
     #region  Track
     private VisualElement trackMenuParent;
     private VisualElement ContentListView;
+    private ScrollView MainContentView;
     private List<SkillTrackBase> trackList = new List<SkillTrackBase>();
 
     private void InitContent()
     {
-        trackMenuParent = root.Q<VisualElement>("TrackMenu");
+        trackMenuParent = root.Q<VisualElement>("TrackMenuList");
         ContentListView = root.Q<VisualElement>(nameof(ContentListView));
+        MainContentView = root.Q<ScrollView>(nameof(MainContentView));
+        MainContentView.verticalScroller.valueChanged += MainContentViewverticalValueChanged;
         UpdateContentSize();
 
         InitTrack();
+    }
+
+    private void MainContentViewverticalValueChanged(float obj)
+    {
+        Vector3 pos = trackMenuParent.transform.position;
+        pos.y = contentContainer.transform.position.y;
+        trackMenuParent.transform.position = pos;
     }
 
     private void InitTrack()
