@@ -15,6 +15,21 @@ public class SkillConfig : ConfigBase
 
     [NonSerialized, OdinSerialize]
     public SkillAnimationData SkillAnimationData = new SkillAnimationData();
+
+#if UNITY_EDITOR
+    private static Action onSkillConfigValidate;
+
+    public static void SetValidateAction(Action action)
+    {
+        onSkillConfigValidate = action;
+    }
+
+    private void OnValidate()
+    {
+        onSkillConfigValidate?.Invoke();
+    }
+#endif
+
 }
 
 /// <summary>
