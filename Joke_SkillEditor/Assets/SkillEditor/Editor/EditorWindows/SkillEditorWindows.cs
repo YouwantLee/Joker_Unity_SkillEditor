@@ -44,6 +44,15 @@ public class SkillEditorWindows : EditorWindow
             CurrentFrameCount = 100;
         }
 
+        if (currentPreviewCharacterPrefab != null)
+        {
+            PreviewCharacterPrefabObjectField.value = currentPreviewCharacterPrefab;
+        }
+        if (currentPreviewCharacterObj != null)
+        {
+            PreviewCharacterObjectField.value = currentPreviewCharacterObj;
+        }
+
         CurrentSelectFrameIndex = 0;
     }
 
@@ -74,7 +83,9 @@ public class SkillEditorWindows : EditorWindow
     private Button SkillBasicButton;
 
     private ObjectField PreviewCharacterPrefabObjectField;
+    private ObjectField PreviewCharacterObjectField;
     private ObjectField SkillConfigObjectField;
+    private GameObject currentPreviewCharacterPrefab;
     private GameObject currentPreviewCharacterObj;
     public GameObject PreviewCharacterObj { get => currentPreviewCharacterObj; }
 
@@ -85,6 +96,7 @@ public class SkillEditorWindows : EditorWindow
         SkillBasicButton = root.Q<Button>(nameof(SkillBasicButton));
 
         PreviewCharacterPrefabObjectField = root.Q<ObjectField>(nameof(PreviewCharacterPrefabObjectField));
+        PreviewCharacterObjectField = root.Q<ObjectField>(nameof(PreviewCharacterObjectField));
         SkillConfigObjectField = root.Q<ObjectField>(nameof(SkillConfigObjectField));
 
         LoadEditorSceneButton.clicked += LoadEditorSceneButtonClick;
@@ -92,6 +104,7 @@ public class SkillEditorWindows : EditorWindow
         SkillBasicButton.clicked += SkillBasicButtonClick;
 
         PreviewCharacterPrefabObjectField.RegisterValueChangedCallback(PreviewCharacterPrefabObjectFieldChanged);
+        PreviewCharacterObjectField.RegisterValueChangedCallback(PreviewCharacterObjectFielChanged);
         SkillConfigObjectField.RegisterValueChangedCallback(SkillConfigObjectFieldChanged);
     }
 
@@ -144,26 +157,45 @@ public class SkillEditorWindows : EditorWindow
     /// <param name="evt"></param>
     private void PreviewCharacterPrefabObjectFieldChanged(ChangeEvent<UnityEngine.Object> evt)
     {
+        //避免在其他场景实例化
         string currentpath = EditorSceneManager.GetActiveScene().path;
-        if (currentpath != skillEditorScenePath) return;
+        if (currentpath != skillEditorScenePath)
+        {
+            PreviewCharacterPrefabObjectField.value = null;
+            return;
+        }
+
+        if (evt.newValue == currentPreviewCharacterPrefab) return;
+        currentPreviewCharacterPrefab = (GameObject)evt.newValue;
 
         //销毁旧的
         if (currentPreviewCharacterObj != null) DestroyImmediate(currentPreviewCharacterObj);
-
 
         Transform parent = GameObject.Find(PreviewCharacterParentPath).transform;
         if (parent != null && parent.childCount > 0)
         {
             DestroyImmediate(parent.GetChild(0).gameObject);
         }
-
+        //实例化新的
         if (evt.newValue != null)
         {
             currentPreviewCharacterObj = Instantiate(evt.newValue as GameObject, Vector3.zero, Quaternion.identity, parent);
             currentPreviewCharacterObj.transform.localEulerAngles = Vector3.zero;
+            PreviewCharacterObjectField.value = currentPreviewCharacterObj;
         }
+    }  
 
+
+    /// <summary>
+    /// 角色预览对象修改
+    /// </summary>
+    /// <param name="evt"></param>
+    private void PreviewCharacterObjectFielChanged(ChangeEvent<UnityEngine.Object> evt)
+    {
+        currentPreviewCharacterObj = (GameObject)evt.newValue;
     }
+
+
 
     /// <summary>
     /// 技能配置修改
