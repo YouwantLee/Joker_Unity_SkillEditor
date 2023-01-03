@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -195,10 +196,92 @@ public class AnimationTrack : SkillTrackBase
         base.TickView(frameIndex);
 
         GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
+        Animator animator = previewGameObject.GetComponent<Animator>();
 
         //根据帧找到目前是哪个动画
         Dictionary<int, SkillAnimationEvent> frameDateDic = AnimationData.FrameDataDic;
 
+        #region 关于根运动计算
+        SortedDictionary<int, SkillAnimationEvent> frameDataSortedDic = new SortedDictionary<int, SkillAnimationEvent>(frameDateDic);
+        int[] keys = frameDataSortedDic.Keys.ToArray();
+        Vector3 rootMotionTotalPos = Vector3.zero;
+
+        for (int i = 0; i < keys.Length; i++)
+        {
+            int key = keys[i]; //当前动画的起始帧数
+            SkillAnimationEvent animationEvent = frameDataSortedDic[key];
+
+            //只考虑根运动配置的动画
+            if (animationEvent.ApplyRootMotion == false) continue;
+
+            int nextKeyFrame = i + 1 < keys.Length ? keys[i + 1] : SkillEditorWindows.Instance.SkillConfig.FrameCount;//最后一个动画
+
+            bool isBreak = false; //标记是最后一次采样
+            //下一帧大于当前选中帧（用户往回点击了）
+            if (nextKeyFrame > frameIndex)
+            {
+                nextKeyFrame = frameIndex;
+                isBreak = true;
+            }
+
+            //持续帧数=下一个动画的帧数  -  这个动画的开始时间
+            int durationFrameCount = nextKeyFrame - key;
+            if (durationFrameCount > 0)
+            {
+                //动画资源的总帧数
+                float clipFrameCount = animationEvent.AnimationClip.length * SkillEditorWindows.Instance.SkillConfig.FrameRate;
+                //计算总的播放进度
+                float totalProgress = durationFrameCount / clipFrameCount;
+                //播放次数
+                int playTimes = 0;
+                //最终不完整的一次播放的进度
+                float lastProgress = 0;
+                //只有循环动画才需要采样多次
+                if (animationEvent.AnimationClip.isLooping)
+                {
+                    playTimes = (int)totalProgress;
+                    lastProgress = totalProgress - (int)totalProgress;
+                }
+                else
+                {
+                    // 不循环的动画，如果播放进度超过1，约束为1
+                    if (totalProgress >= 1)
+                    {
+                        playTimes = 1;
+                        lastProgress = 0;
+                    }
+                    else if (totalProgress < 1)
+                    {
+                        lastProgress = totalProgress; // 因为总进度小于1，所以本身就是最后一次播放
+                        playTimes = 0;
+                    }
+                }
+
+                //采样计算
+                animator.applyRootMotion = true;
+                if (playTimes >= 1)
+                {
+                    //采样一次动画的完整进度
+                    animationEvent.AnimationClip.SampleAnimation(previewGameObject, animationEvent.AnimationClip.length);
+                    Vector3 samplePos = previewGameObject.transform.position;
+                    rootMotionTotalPos += samplePos * playTimes;
+                }
+
+                if (lastProgress > 0)
+                {
+                    //采样一次动画的不完整进度（此处会修改角色位置）
+                    animationEvent.AnimationClip.SampleAnimation(previewGameObject, lastProgress * animationEvent.AnimationClip.length);
+                    Vector3 samplePos = previewGameObject.transform.position;
+                    rootMotionTotalPos += samplePos;
+                }
+
+            }
+
+            if (isBreak) break;
+        }
+        #endregion
+
+        #region 关于当前帧的姿态
         //找到距离这一帧左边最近的一个动画，也就是当前要播放的动画
         int currentOffset = int.MaxValue;  //最近的索引距离当前选中帧的差距
         int animtionEventIndex = -1;
@@ -225,9 +308,13 @@ public class AnimationTrack : SkillTrackBase
                 progress -= (int)progress;//只保留小数点部分
             }
 
+            animator.applyRootMotion = animationEvent.ApplyRootMotion;
             animationEvent.AnimationClip.SampleAnimation(previewGameObject, progress * animationEvent.AnimationClip.length);
         }
+        #endregion
 
+        //将角色拉回实际位置
+        previewGameObject.transform.position = rootMotionTotalPos;
     }
 
 

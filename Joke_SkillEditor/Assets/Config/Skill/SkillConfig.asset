@@ -19,6 +19,7 @@ MonoBehaviour:
     - {fileID: 7400000, guid: bc0889572cfc06743a627b7e65d31fc3, type: 3}
     - {fileID: 7400000, guid: 2d45f153d8fc9d8488863f43e3d61bad, type: 3}
     - {fileID: 7400000, guid: 41a5baa548f81184889c895cae3a5505, type: 3}
+    - {fileID: 7400000, guid: a8bb1c2786796814cac136ae2bb36a2b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -40,7 +41,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -58,7 +59,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
       Data: 15
@@ -73,7 +74,7 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 3
-      Data: 30
+      Data: 58
     - Name: $v
       Entry: 7
       Data: 4|SkillAnimationEvent, Assembly-CSharp
@@ -85,7 +86,7 @@ MonoBehaviour:
       Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
       Data: 20
@@ -112,10 +113,37 @@ MonoBehaviour:
       Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
       Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 30
+    - Name: $v
+      Entry: 7
+      Data: 6|SkillAnimationEvent, Assembly-CSharp
+    - Name: AnimationClip
+      Entry: 10
+      Data: 3
+    - Name: TransitionTime
+      Entry: 4
+      Data: 0.25
+    - Name: ApplyRootMotion
+      Entry: 5
+      Data: false
+    - Name: DurationFrame
+      Entry: 3
+      Data: 28
     - Name: 
       Entry: 8
       Data: 
@@ -132,5 +160,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   SkillName: "\u6D4B\u8BD5"
-  FrameCount: 108
+  FrameCount: 112
   FrameRate: 30

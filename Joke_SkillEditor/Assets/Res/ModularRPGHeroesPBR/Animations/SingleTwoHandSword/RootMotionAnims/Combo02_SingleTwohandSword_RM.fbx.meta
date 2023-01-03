@@ -1,169 +1,485 @@
 fileFormatVersion: 2
 guid: bc0889572cfc06743a627b7e65d31fc3
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: backpackShield01
-    100002: backpackShield02
-    100004: ball_l
-    100006: ball_r
-    100008: calf_l
-    100010: calf_r
-    100012: clavicle_l
-    100014: clavicle_r
-    100016: Cloth5
-    100018: //RootNode
-    100020: Face1
-    100022: foot_l
-    100024: foot_r
-    100026: Glove3
-    100028: goggle
-    100030: Hair1Half
-    100032: hand_l
-    100034: hand_r
-    100036: head
-    100038: Helm3
-    100040: index_01_l
-    100042: index_01_r
-    100044: index_02_l
-    100046: index_02_r
-    100048: index_03_l
-    100050: index_03_r
-    100052: lowerarm_l
-    100054: lowerarm_r
-    100056: middle_01_l
-    100058: middle_01_r
-    100060: middle_02_l
-    100062: middle_02_r
-    100064: middle_03_l
-    100066: middle_03_r
-    100068: neck_01
-    100070: pelvis
-    100072: pinky_01_l
-    100074: pinky_01_r
-    100076: pinky_02_l
-    100078: pinky_02_r
-    100080: pinky_03_l
-    100082: pinky_03_r
-    100084: ring_01_l
-    100086: ring_01_r
-    100088: ring_02_l
-    100090: ring_02_r
-    100092: ring_03_l
-    100094: ring_03_r
-    100096: root
-    100098: Shoe2
-    100100: ShoulderPad1
-    100102: shoulderPad_l
-    100104: shoulderPad_r
-    100106: spine_01
-    100108: spine_02
-    100110: spine_03
-    100112: thigh_l
-    100114: thigh_r
-    100116: thumb_01_l
-    100118: thumb_01_r
-    100120: thumb_02_l
-    100122: thumb_02_r
-    100124: thumb_03_l
-    100126: thumb_03_r
-    100128: upperarm_l
-    100130: upperarm_r
-    100132: weaponPosition_l
-    100134: weaponPosition_r
-    100136: weaponPositionTop
-    100138: weaponShield_l
-    100140: weaponShield_r
-    400000: backpackShield01
-    400002: backpackShield02
-    400004: ball_l
-    400006: ball_r
-    400008: calf_l
-    400010: calf_r
-    400012: clavicle_l
-    400014: clavicle_r
-    400016: Cloth5
-    400018: //RootNode
-    400020: Face1
-    400022: foot_l
-    400024: foot_r
-    400026: Glove3
-    400028: goggle
-    400030: Hair1Half
-    400032: hand_l
-    400034: hand_r
-    400036: head
-    400038: Helm3
-    400040: index_01_l
-    400042: index_01_r
-    400044: index_02_l
-    400046: index_02_r
-    400048: index_03_l
-    400050: index_03_r
-    400052: lowerarm_l
-    400054: lowerarm_r
-    400056: middle_01_l
-    400058: middle_01_r
-    400060: middle_02_l
-    400062: middle_02_r
-    400064: middle_03_l
-    400066: middle_03_r
-    400068: neck_01
-    400070: pelvis
-    400072: pinky_01_l
-    400074: pinky_01_r
-    400076: pinky_02_l
-    400078: pinky_02_r
-    400080: pinky_03_l
-    400082: pinky_03_r
-    400084: ring_01_l
-    400086: ring_01_r
-    400088: ring_02_l
-    400090: ring_02_r
-    400092: ring_03_l
-    400094: ring_03_r
-    400096: root
-    400098: Shoe2
-    400100: ShoulderPad1
-    400102: shoulderPad_l
-    400104: shoulderPad_r
-    400106: spine_01
-    400108: spine_02
-    400110: spine_03
-    400112: thigh_l
-    400114: thigh_r
-    400116: thumb_01_l
-    400118: thumb_01_r
-    400120: thumb_02_l
-    400122: thumb_02_r
-    400124: thumb_03_l
-    400126: thumb_03_r
-    400128: upperarm_l
-    400130: upperarm_r
-    400132: weaponPosition_l
-    400134: weaponPosition_r
-    400136: weaponPositionTop
-    400138: weaponShield_l
-    400140: weaponShield_r
-    4300000: Face1
-    4300002: Cloth5
-    4300004: Hair1Half
-    4300006: Glove3
-    4300008: Shoe2
-    4300010: ShoulderPad1
-    4300012: Helm3
-    7400000: Combo02_RM
-    9500000: //RootNode
-    13700000: Cloth5
-    13700002: Face1
-    13700004: Glove3
-    13700006: Hair1Half
-    13700008: Helm3
-    13700010: Shoe2
-    13700012: ShoulderPad1
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: backpackShield01
+  - first:
+      1: 100002
+    second: backpackShield02
+  - first:
+      1: 100004
+    second: ball_l
+  - first:
+      1: 100006
+    second: ball_r
+  - first:
+      1: 100008
+    second: calf_l
+  - first:
+      1: 100010
+    second: calf_r
+  - first:
+      1: 100012
+    second: clavicle_l
+  - first:
+      1: 100014
+    second: clavicle_r
+  - first:
+      1: 100016
+    second: Cloth5
+  - first:
+      1: 100018
+    second: //RootNode
+  - first:
+      1: 100020
+    second: Face1
+  - first:
+      1: 100022
+    second: foot_l
+  - first:
+      1: 100024
+    second: foot_r
+  - first:
+      1: 100026
+    second: Glove3
+  - first:
+      1: 100028
+    second: goggle
+  - first:
+      1: 100030
+    second: Hair1Half
+  - first:
+      1: 100032
+    second: hand_l
+  - first:
+      1: 100034
+    second: hand_r
+  - first:
+      1: 100036
+    second: head
+  - first:
+      1: 100038
+    second: Helm3
+  - first:
+      1: 100040
+    second: index_01_l
+  - first:
+      1: 100042
+    second: index_01_r
+  - first:
+      1: 100044
+    second: index_02_l
+  - first:
+      1: 100046
+    second: index_02_r
+  - first:
+      1: 100048
+    second: index_03_l
+  - first:
+      1: 100050
+    second: index_03_r
+  - first:
+      1: 100052
+    second: lowerarm_l
+  - first:
+      1: 100054
+    second: lowerarm_r
+  - first:
+      1: 100056
+    second: middle_01_l
+  - first:
+      1: 100058
+    second: middle_01_r
+  - first:
+      1: 100060
+    second: middle_02_l
+  - first:
+      1: 100062
+    second: middle_02_r
+  - first:
+      1: 100064
+    second: middle_03_l
+  - first:
+      1: 100066
+    second: middle_03_r
+  - first:
+      1: 100068
+    second: neck_01
+  - first:
+      1: 100070
+    second: pelvis
+  - first:
+      1: 100072
+    second: pinky_01_l
+  - first:
+      1: 100074
+    second: pinky_01_r
+  - first:
+      1: 100076
+    second: pinky_02_l
+  - first:
+      1: 100078
+    second: pinky_02_r
+  - first:
+      1: 100080
+    second: pinky_03_l
+  - first:
+      1: 100082
+    second: pinky_03_r
+  - first:
+      1: 100084
+    second: ring_01_l
+  - first:
+      1: 100086
+    second: ring_01_r
+  - first:
+      1: 100088
+    second: ring_02_l
+  - first:
+      1: 100090
+    second: ring_02_r
+  - first:
+      1: 100092
+    second: ring_03_l
+  - first:
+      1: 100094
+    second: ring_03_r
+  - first:
+      1: 100096
+    second: root
+  - first:
+      1: 100098
+    second: Shoe2
+  - first:
+      1: 100100
+    second: ShoulderPad1
+  - first:
+      1: 100102
+    second: shoulderPad_l
+  - first:
+      1: 100104
+    second: shoulderPad_r
+  - first:
+      1: 100106
+    second: spine_01
+  - first:
+      1: 100108
+    second: spine_02
+  - first:
+      1: 100110
+    second: spine_03
+  - first:
+      1: 100112
+    second: thigh_l
+  - first:
+      1: 100114
+    second: thigh_r
+  - first:
+      1: 100116
+    second: thumb_01_l
+  - first:
+      1: 100118
+    second: thumb_01_r
+  - first:
+      1: 100120
+    second: thumb_02_l
+  - first:
+      1: 100122
+    second: thumb_02_r
+  - first:
+      1: 100124
+    second: thumb_03_l
+  - first:
+      1: 100126
+    second: thumb_03_r
+  - first:
+      1: 100128
+    second: upperarm_l
+  - first:
+      1: 100130
+    second: upperarm_r
+  - first:
+      1: 100132
+    second: weaponPosition_l
+  - first:
+      1: 100134
+    second: weaponPosition_r
+  - first:
+      1: 100136
+    second: weaponPositionTop
+  - first:
+      1: 100138
+    second: weaponShield_l
+  - first:
+      1: 100140
+    second: weaponShield_r
+  - first:
+      4: 400000
+    second: backpackShield01
+  - first:
+      4: 400002
+    second: backpackShield02
+  - first:
+      4: 400004
+    second: ball_l
+  - first:
+      4: 400006
+    second: ball_r
+  - first:
+      4: 400008
+    second: calf_l
+  - first:
+      4: 400010
+    second: calf_r
+  - first:
+      4: 400012
+    second: clavicle_l
+  - first:
+      4: 400014
+    second: clavicle_r
+  - first:
+      4: 400016
+    second: Cloth5
+  - first:
+      4: 400018
+    second: //RootNode
+  - first:
+      4: 400020
+    second: Face1
+  - first:
+      4: 400022
+    second: foot_l
+  - first:
+      4: 400024
+    second: foot_r
+  - first:
+      4: 400026
+    second: Glove3
+  - first:
+      4: 400028
+    second: goggle
+  - first:
+      4: 400030
+    second: Hair1Half
+  - first:
+      4: 400032
+    second: hand_l
+  - first:
+      4: 400034
+    second: hand_r
+  - first:
+      4: 400036
+    second: head
+  - first:
+      4: 400038
+    second: Helm3
+  - first:
+      4: 400040
+    second: index_01_l
+  - first:
+      4: 400042
+    second: index_01_r
+  - first:
+      4: 400044
+    second: index_02_l
+  - first:
+      4: 400046
+    second: index_02_r
+  - first:
+      4: 400048
+    second: index_03_l
+  - first:
+      4: 400050
+    second: index_03_r
+  - first:
+      4: 400052
+    second: lowerarm_l
+  - first:
+      4: 400054
+    second: lowerarm_r
+  - first:
+      4: 400056
+    second: middle_01_l
+  - first:
+      4: 400058
+    second: middle_01_r
+  - first:
+      4: 400060
+    second: middle_02_l
+  - first:
+      4: 400062
+    second: middle_02_r
+  - first:
+      4: 400064
+    second: middle_03_l
+  - first:
+      4: 400066
+    second: middle_03_r
+  - first:
+      4: 400068
+    second: neck_01
+  - first:
+      4: 400070
+    second: pelvis
+  - first:
+      4: 400072
+    second: pinky_01_l
+  - first:
+      4: 400074
+    second: pinky_01_r
+  - first:
+      4: 400076
+    second: pinky_02_l
+  - first:
+      4: 400078
+    second: pinky_02_r
+  - first:
+      4: 400080
+    second: pinky_03_l
+  - first:
+      4: 400082
+    second: pinky_03_r
+  - first:
+      4: 400084
+    second: ring_01_l
+  - first:
+      4: 400086
+    second: ring_01_r
+  - first:
+      4: 400088
+    second: ring_02_l
+  - first:
+      4: 400090
+    second: ring_02_r
+  - first:
+      4: 400092
+    second: ring_03_l
+  - first:
+      4: 400094
+    second: ring_03_r
+  - first:
+      4: 400096
+    second: root
+  - first:
+      4: 400098
+    second: Shoe2
+  - first:
+      4: 400100
+    second: ShoulderPad1
+  - first:
+      4: 400102
+    second: shoulderPad_l
+  - first:
+      4: 400104
+    second: shoulderPad_r
+  - first:
+      4: 400106
+    second: spine_01
+  - first:
+      4: 400108
+    second: spine_02
+  - first:
+      4: 400110
+    second: spine_03
+  - first:
+      4: 400112
+    second: thigh_l
+  - first:
+      4: 400114
+    second: thigh_r
+  - first:
+      4: 400116
+    second: thumb_01_l
+  - first:
+      4: 400118
+    second: thumb_01_r
+  - first:
+      4: 400120
+    second: thumb_02_l
+  - first:
+      4: 400122
+    second: thumb_02_r
+  - first:
+      4: 400124
+    second: thumb_03_l
+  - first:
+      4: 400126
+    second: thumb_03_r
+  - first:
+      4: 400128
+    second: upperarm_l
+  - first:
+      4: 400130
+    second: upperarm_r
+  - first:
+      4: 400132
+    second: weaponPosition_l
+  - first:
+      4: 400134
+    second: weaponPosition_r
+  - first:
+      4: 400136
+    second: weaponPositionTop
+  - first:
+      4: 400138
+    second: weaponShield_l
+  - first:
+      4: 400140
+    second: weaponShield_r
+  - first:
+      43: 4300000
+    second: Face1
+  - first:
+      43: 4300002
+    second: Cloth5
+  - first:
+      43: 4300004
+    second: Hair1Half
+  - first:
+      43: 4300006
+    second: Glove3
+  - first:
+      43: 4300008
+    second: Shoe2
+  - first:
+      43: 4300010
+    second: ShoulderPad1
+  - first:
+      43: 4300012
+    second: Helm3
+  - first:
+      74: 7400000
+    second: Combo02_RM
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Cloth5
+  - first:
+      137: 13700002
+    second: Face1
+  - first:
+      137: 13700004
+    second: Glove3
+  - first:
+      137: 13700006
+    second: Hair1Half
+  - first:
+      137: 13700008
+    second: Helm3
+  - first:
+      137: 13700010
+    second: Shoe2
+  - first:
+      137: 13700012
+    second: ShoulderPad1
   externalObjects: {}
   materials:
-    importMaterials: 0
+    materialImportMode: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 0
@@ -172,6 +488,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -192,6 +509,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Combo02_RM
       takeName: Take 001
+      internalID: 0
       firstFrame: 0
       lastFrame: 15
       wrapMode: 0
@@ -200,7 +518,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -366,25 +684,34 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.01
-    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -393,10 +720,10 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human:
     - boneName: pelvis
       humanName: Hips
@@ -1169,13 +1496,17 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
