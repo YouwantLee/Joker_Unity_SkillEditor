@@ -321,5 +321,9 @@ public class AnimationTrack : SkillTrackBase
         previewGameObject.transform.position = rootMotionTotalPos;
     }
 
+    public override void Destory()
+    {
+        trackStyle.Destory();
+    }
 
 }

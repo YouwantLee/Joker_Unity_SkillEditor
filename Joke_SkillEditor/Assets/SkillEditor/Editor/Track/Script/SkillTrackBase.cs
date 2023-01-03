@@ -36,5 +36,6 @@ public abstract class SkillTrackBase
     public virtual void OnConfigChanged() { }
 
     public virtual void TickView(int frameIndex) { }
+    public virtual void Destory() { }
 
 }

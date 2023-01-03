@@ -205,17 +205,19 @@ public class SkillEditorWindows : EditorWindow
     {
         skillConfig = evt.newValue as SkillConfig;
 
-        //刷新轨道
-        ResetTrack();
-
         CurrentSelectFrameIndex = 0;
         if (skillConfig == null)
         {
             CurrentFrameCount = 100;
-            return;
+        }
+        else
+        {
+            CurrentFrameCount = skillConfig.FrameCount;
         }
 
-        CurrentFrameCount = skillConfig.FrameCount;
+        //刷新轨道
+        ResetTrack();
+
     }
 
     #endregion Config
@@ -531,17 +533,43 @@ public class SkillEditorWindows : EditorWindow
 
     private void InitTrack()
     {
+        if (skillConfig == null) return;
         InitAnimationTrack();
+
+        //音效、特效轨道....
     }
 
     private void ResetTrack()
+    {
+        if (skillConfig == null)
+        {
+            //清理掉所有轨道
+            DestoryTracks();
+        }
+        else
+        {
+            //如果轨道列表里面没有数据，说明没有轨道；存在配置的，需要初始化
+            if (trackList.Count == 0)
+            {
+                InitTrack();
+            }
+
+            //更新视图
+            for (int i = 0; i < trackList.Count; i++)
+            {
+                trackList[i].ResetView(skillEditorConfig.FrameUnitWidth);
+            }
+        }
+    }
+
+    private void DestoryTracks()
     {
         for (int i = 0; i < trackList.Count; i++)
         {
             trackList[i].ResetView(skillEditorConfig.FrameUnitWidth);
         }
+        trackList.Clear();
     }
-
 
     /// <summary>
     /// Content 区域的尺寸变化
