@@ -566,7 +566,7 @@ public class SkillEditorWindows : EditorWindow
     {
         for (int i = 0; i < trackList.Count; i++)
         {
-            trackList[i].ResetView(skillEditorConfig.FrameUnitWidth);
+            trackList[i].Destory();
         }
         trackList.Clear();
     }

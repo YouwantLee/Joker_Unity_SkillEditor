@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Template name="SingleLineTrackMenu" src="project://database/Assets/SkillEditor/Editor/Track/Assets/SingleLineTrackStyle/SingleLineTrackMenu.uxml?fileID=9197481963319205126&amp;guid=ec3084980c5982942bba27d1572327c0&amp;type=3#SingleLineTrackMenu" />
     <ui:VisualElement name="TopMenu" style="height: 45px; flex-basis: 45px; flex-direction: row; min-width: auto; min-height: auto; border-left-color: rgb(31, 31, 31); border-right-color: rgb(31, 31, 31); border-top-color: rgb(31, 31, 31); border-bottom-color: rgb(31, 31, 31); border-bottom-width: 2px; margin-top: 5px; margin-left: 5px; margin-right: 5px;">
         <ui:Button text="加载编辑器场景" display-tooltip-when-elided="true" name="LoadEditorSceneButton" style="width: 90px; margin-left: 0; padding-left: 6px;" />
         <ui:Button text="加载旧场景" display-tooltip-when-elided="true" name="LoadOldSceneButton" style="width: 90px;" />
@@ -22,7 +23,21 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:ScrollView name="TrackMenuScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
-                <ui:VisualElement name="TrackMenuList" style="width: 100%; height: 100%; padding-left: 4px; flex-grow: 1; min-height: 1000px;" />
+                <ui:VisualElement name="TrackMenuList" style="width: 100%; height: 100%; padding-left: 4px; flex-grow: 1; min-height: 1000px;">
+                    <ui:Instance template="SingleLineTrackMenu" name="SingleLineTrackMenu" />
+                    <ui:VisualElement name="MultiLineTrackMenu" style="background-color: rgb(88, 88, 88); height: 290px;">
+                        <ui:VisualElement name="Top" style="height: 30px; background-color: rgba(0, 0, 0, 0); border-bottom-color: rgb(77, 77, 77); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px;">
+                            <ui:Label text="声音配置" display-tooltip-when-elided="true" name="Title" style="width: auto; height: 100%; -unity-text-align: middle-center; font-size: 15px;" />
+                            <ui:Button text="+" display-tooltip-when-elided="true" name="AddButton" style="width: 30px; height: 100%; position: absolute; font-size: 15px; right: 5px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); border-top-color: rgba(32, 32, 32, 0); border-bottom-color: rgba(32, 32, 32, 0);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="TrackMenuList" style="height: 171px;">
+                            <ui:VisualElement name="Item" style="height: 30px; margin-bottom: 2px;">
+                                <ui:TextField picking-mode="Ignore" text="轨道" name="NameField" style="margin-left: 10px; margin-top: 0; margin-bottom: 0; margin-right: 5px; height: 30px;" />
+                                <ui:Button text="X" display-tooltip-when-elided="true" name="DeleteButton" style="position: absolute; top: 8px; left: auto; right: 13px; width: 15px; height: 15px; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-color: rgba(88, 88, 88, 255);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
             </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement name="Right" style="flex-grow: 1; height: auto; width: auto; margin-left: 0; margin-right: 0; padding-left: 10px; padding-right: 5px;">
