@@ -9,11 +9,11 @@ public class TestSkill : MonoBehaviour
     public SkillConfig SkillConfig;
 
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            //Skill_Player.PlaySkill(SkillConfig);
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        //Skill_Player.PlaySkill(SkillConfig);
+    //    }
+    //}
 }
