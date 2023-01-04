@@ -67,10 +67,14 @@
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillSingleLineTrackStyle.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillTrackItemStyleBase.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillAnimationTrackItemStyle.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillMultiLineTrackStyle.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\AudioTrack\AudioTrack.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\SkillEditor\Editor\Track\Assets\MultiLineTrackStyle\MultiLineTrackMenuItem.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\AnimationTrack\AnimationTrackItem.uxml" />
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uss" />
+    <None Include="Assets\SkillEditor\Editor\Track\Assets\MultiLineTrackStyle\MultiLineTrackMenu.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\SingleLineTrackStyle\SingleLineTrackContent.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\SingleLineTrackStyle\SingleLineTrackMenu.uxml" />
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uxml" />

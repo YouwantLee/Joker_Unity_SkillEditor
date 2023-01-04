@@ -352,6 +352,7 @@ public class SkillEditorWindows : EditorWindow
         UpdateContentSize();
 
         //TrackItem 的ResetView
+        ResetTrack();
     }
 
 
@@ -537,6 +538,21 @@ public class SkillEditorWindows : EditorWindow
         InitAnimationTrack();
 
         //音效、特效轨道....
+        InitAudioTrack();
+    }
+
+    private void InitAnimationTrack()
+    {
+        AnimationTrack animationTrack = new AnimationTrack();
+        animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
+        trackList.Add(animationTrack);
+    }
+
+    private void InitAudioTrack()
+    {
+        AudioTrack audioTrack = new AudioTrack();
+        audioTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
+        trackList.Add(audioTrack);
     }
 
     private void ResetTrack()
@@ -579,12 +595,7 @@ public class SkillEditorWindows : EditorWindow
         ContentListView.style.width = skillEditorConfig.FrameUnitWidth * CurrentFrameCount;
     }
 
-    private void InitAnimationTrack()
-    {
-        AnimationTrack animationTrack = new AnimationTrack();
-        animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
-        trackList.Add(animationTrack);
-    }
+
 
 
     public void ShowTrackItemOnInspector(TrackItemBase trackItem, SkillTrackBase track)
