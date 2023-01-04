@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\UI\UI_ProfessionButton.cs" />
     <Compile Include="Assets\Scripts\Player\Animation\SingleAnimationNode.cs" />
     <Compile Include="Assets\Scripts\MenuScene\MenuSceneManager.cs" />
+    <Compile Include="Assets\Scripts\Player\Skill\Skill_Player.cs" />
     <Compile Include="Assets\Scripts\Config\HairConfig.cs" />
     <Compile Include="Assets\Scripts\Config\ProfessionType.cs" />
     <Compile Include="Assets\Scripts\Player\Player_Controller.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\UI\UI_FacadeMenus_Tab.cs" />
     <Compile Include="Assets\Scripts\CreateCharacterScene\CharacterCreator.cs" />
     <Compile Include="Assets\Res\UI\MenuSceneWindow\UIParticle\UIParticleSystem.cs" />
+    <Compile Include="Assets\Scripts\Player\TestSkill.cs" />
     <Compile Include="Assets\Scripts\Config\FaceConfig.cs" />
     <Compile Include="Assets\Scripts\Player\Player_View.cs" />
     <Compile Include="Assets\Scripts\Player\Animation\AnimationNodeBase.cs" />
@@ -91,10 +93,8 @@
     <Compile Include="Assets\Scripts\Player\State\Player_IdleState.cs" />
     <Compile Include="Assets\Scripts\Config\ClothConfig.cs" />
     <Compile Include="Assets\Scripts\Serialization\Serialization_Dic.cs" />
-    <Compile Include="Assets\Scripts\Serialization\Serialization_Color.cs" />
-    <Compile Include="Assets\Scripts\Player\Skill\Skill_Player.cs" />
-    <Compile Include="Assets\Scripts\Player\TestSkill.cs" />
     <Compile Include="Assets\Scripts\Player\State\Player_SkillState.cs" />
+    <Compile Include="Assets\Scripts\Serialization\Serialization_Color.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Res\ModularRPGHeroesPBR\Shader\PBRMaskTint.shader" />

@@ -56,19 +56,19 @@
     <Analyzer Include="D:\01_Software\002_VS\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillSingleLineTrackStyle.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\AudioTrack\AudioTrack.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillMultiLineTrackStyle.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillAnimationTrackItemStyle.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\AnimationTrack\AnimationTrackItem.cs" />
     <Compile Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\AnimationTrack\AnimationTrack.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillTrackStyleBase.cs" />
+    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillTrackItemStyleBase.cs" />
     <Compile Include="Assets\JKFrame\Editor\JKMenuItem.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\TrackItemBase.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Track\Script\SkillTrackBase.cs" />
     <Compile Include="Assets\SkillEditor\Editor\Inspector\SkillEditorInspector.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillTrackStyleBase.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillSingleLineTrackStyle.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillTrackItemStyleBase.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\TrackItem\SkillAnimationTrackItemStyle.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\Style\Track\SkillMultiLineTrackStyle.cs" />
-    <Compile Include="Assets\SkillEditor\Editor\Track\Script\AudioTrack\AudioTrack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SkillEditor\Editor\Track\Assets\MultiLineTrackStyle\MultiLineTrackMenuItem.uxml" />
