@@ -8,7 +8,7 @@ public class TestSkill : MonoBehaviour
     public Skill_Player Skill_Player;
     public SkillConfig SkillConfig;
 
-
+    string aaa;
     //void Update()
     //{
     //    if (Input.GetKeyDown(KeyCode.R))
