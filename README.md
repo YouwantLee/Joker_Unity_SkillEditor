@@ -5,6 +5,8 @@
 #### 介绍
 Joker---ARPG系列课（三）：技能编辑器动画篇(已完结)
 
+https://www.bilibili.com/video/BV1h8411h7np/?spm_id_from=333.999.0.0&vd_source=9b60a7e4bd5bbea30302d42844fd1a07
+
 Joker---ARPG系列课（四）：技能音效与特效篇（持续更新中）
 
 第四季主要内容：
