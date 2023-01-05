@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="MultiLineTrackContent" style="height: 35px; background-color: rgba(88, 88, 88, 255);" />
+</ui:UXML>

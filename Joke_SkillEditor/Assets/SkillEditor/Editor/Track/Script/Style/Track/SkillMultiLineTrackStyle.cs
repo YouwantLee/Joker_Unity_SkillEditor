@@ -7,8 +7,15 @@ using UnityEngine.UIElements;
 
 public class SkillMultiLineTrackStyle : SkillTrackStyleBase
 {
+    #region 常量
     private const string menuAssetPath = "Assets/SkillEditor/Editor/Track/Assets/MultiLineTrackStyle/MultiLineTrackMenu.uxml";
-    private const string trackAssetPath = "Assets/SkillEditor/Editor/Track/Assets/SingleLineTrackStyle/SingleLineTrackContent.uxml";
+    private const string trackAssetPath = "Assets/SkillEditor/Editor/Track/Assets/MultiLineTrackStyle/MultiLineTrackContent.uxml";
+    private const float headHeight = 35;//5是间距
+    private const float itemHeight = 32;//2是底部外边距
+
+    #endregion
+
+
     private Func<bool> addChildTrackFunc;
     private Func<int, bool> deleteChildTrackFunc;
 
@@ -24,9 +31,9 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         this.deleteChildTrackFunc = deleteChildTrackFunc;
 
         menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menuAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
-        //contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
+        contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
         menuParent.Add(menuRoot);
-        //contentParent.Add(contentRoot);
+        contentParent.Add(contentRoot);
 
         titleLabel = menuRoot.Q<Label>("Title");
         titleLabel.text = title;
@@ -36,7 +43,17 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         //添加子轨道的按钮
         Button addButton = menuRoot.Q<Button>("AddButton");
         addButton.clicked += AddButtonClicked;
+
+        UpdateSize();
     }
+
+    private void UpdateSize()
+    {
+        float height = headHeight + (childTracksList.Count * itemHeight);
+        contentRoot.style.height = height;
+        menuRoot.style.height = height;
+    }
+
 
     //添加子轨道
     private void AddButtonClicked()
@@ -47,8 +64,9 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         if (addChildTrackFunc())
         {
             ChildTrack childTrack = new ChildTrack();
-            childTrack.Init(menuParent, childTracksList.Count, null, DeleteChildTrack);
+            childTrack.Init(menuItemParent, childTracksList.Count, null, DeleteChildTrack);
             childTracksList.Add(childTrack);
+            UpdateSize();
         }
     }
 
@@ -63,6 +81,7 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
             childTracksList.RemoveAt(index);
             //所有的子轨道都需要更新一下索引
             UpdateChilds(index);
+            UpdateSize();
         }
     }
 

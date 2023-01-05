@@ -76,6 +76,7 @@
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uss" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\MultiLineTrackStyle\MultiLineTrackMenu.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\SingleLineTrackStyle\SingleLineTrackContent.uxml" />
+    <None Include="Assets\SkillEditor\Editor\Track\Assets\MultiLineTrackStyle\MultiLineTrackContent.uxml" />
     <None Include="Assets\SkillEditor\Editor\Track\Assets\SingleLineTrackStyle\SingleLineTrackMenu.uxml" />
     <None Include="Assets\SkillEditor\Editor\EditorWindows\SkillEditorWindows.uxml" />
   </ItemGroup>
