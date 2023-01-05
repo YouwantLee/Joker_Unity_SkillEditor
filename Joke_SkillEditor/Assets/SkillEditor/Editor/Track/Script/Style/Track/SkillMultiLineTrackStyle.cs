@@ -10,15 +10,18 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
     private const string menuAssetPath = "Assets/SkillEditor/Editor/Track/Assets/MultiLineTrackStyle/MultiLineTrackMenu.uxml";
     private const string trackAssetPath = "Assets/SkillEditor/Editor/Track/Assets/SingleLineTrackStyle/SingleLineTrackContent.uxml";
     private Func<bool> addChildTrackFunc;
+    private Func<int, bool> deleteChildTrackFunc;
 
     private VisualElement menuItemParent;//子轨道的菜单父物体
+    private List<ChildTrack> childTracksList = new List<ChildTrack>();
 
 
-    public void Init(VisualElement menuParent, VisualElement contentParent, string title, Func<bool> addChildTrackFunc)
+    public void Init(VisualElement menuParent, VisualElement contentParent, string title, Func<bool> addChildTrackFunc, Func<int, bool> deleteChildTrackFunc)
     {
         this.menuParent = menuParent;
         this.contentParent = contentParent;
         this.addChildTrackFunc = addChildTrackFunc;
+        this.deleteChildTrackFunc = deleteChildTrackFunc;
 
         menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menuAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
         //contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
@@ -44,9 +47,31 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         if (addChildTrackFunc())
         {
             ChildTrack childTrack = new ChildTrack();
-            childTrack.Init(menuParent, null);
+            childTrack.Init(menuParent, childTracksList.Count, null, DeleteChildTrack);
+            childTracksList.Add(childTrack);
         }
+    }
 
+    //删除子轨道
+    private void DeleteChildTrack(ChildTrack childTrack)
+    {
+        if (deleteChildTrackFunc == null) return;
+        int index = childTrack.GetIndex();
+        if (deleteChildTrackFunc(index))
+        {
+            childTrack.Destory();
+            childTracksList.RemoveAt(index);
+            //所有的子轨道都需要更新一下索引
+            UpdateChilds(index);
+        }
+    }
+
+    private void UpdateChilds(int startIndex = 0)
+    {
+        for (int i = startIndex; i < childTracksList.Count; i++)
+        {
+            childTracksList[i].SetIndex(i);
+        }
     }
 
 
@@ -68,15 +93,34 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         public VisualElement trackParent;
         #endregion
 
-        public void Init(VisualElement menuParent, VisualElement trackParent)
+        private Action<ChildTrack> deleteAction;
+        private int index;
+
+        public void Init(VisualElement menuParent, int index, VisualElement trackParent, Action<ChildTrack> deleteAction)
         {
             this.menuParent = menuParent;
             this.trackParent = trackParent;
+            this.deleteAction = deleteAction;
 
             menuRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(menuItemAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
             menuParent.Add(menuRoot);                                                                                             //contentRoot = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(trackAssetPath).Instantiate().Query().ToList()[1];//不要容器，直接持有目标物体
 
+            Button deleteButton = menuRoot.Q<Button>("DeleteButton");
+            deleteButton.clicked += () => deleteAction(this);
+
+            SetIndex(index);
         }
+
+        public int GetIndex()
+        {
+            return index;
+        }
+
+        public void SetIndex(int index)
+        {
+            this.index = index;
+        }
+
 
         public virtual void AddItem(VisualElement ve)
         {

@@ -13,7 +13,7 @@ public class AudioTrack : SkillTrackBase
     {
         base.Init(menuParent, trackParent, frameWidth);
         trackStyle = new SkillMultiLineTrackStyle();
-        trackStyle.Init(menuParent, trackParent, "“Ù–ß≈‰÷√", ChectAddChildTrack);
+        trackStyle.Init(menuParent, trackParent, "“Ù–ß≈‰÷√", ChectAddChildTrack, CheckDeleteChildTrack);
         //trackStyle.contentRoot.RegisterCallback<DragUpdatedEvent>(OnDragUpdatedEvent);
         //trackStyle.contentRoot.RegisterCallback<DragExitedEvent>(OnDragExitedEvent);
 
@@ -23,6 +23,11 @@ public class AudioTrack : SkillTrackBase
     private bool ChectAddChildTrack()
     {
 
+        return true;
+    }
+
+    private bool CheckDeleteChildTrack(int index)
+    {
         return true;
     }
 
